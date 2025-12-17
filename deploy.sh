@@ -56,6 +56,8 @@ sftp -i "$PEM_PATH" -o StrictHostKeyChecking=no "$USER@$HOST" << EOF
 mkdir $REMOTE_PATH
 cd $REMOTE_PATH
 put dist/index.html
+put dist/Isotipo.png
+put dist/Logo.png
 mkdir assets
 cd assets
 lcd dist/assets
