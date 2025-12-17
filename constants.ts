@@ -143,7 +143,7 @@ export const CONTENT: { en: DashboardContent; es: DashboardContent } = {
         title: 'Key Findings',
         items: [
           '99.9% faster response time (0.26 min vs 190 min)',
-          '2x+ simultaneous capacity (215 max vs 100)',
+          '21x simultaneous capacity (215 max vs ~10 per agent)',
           'Engagement rate: 73.7% AI vs 80% Human',
           'Consistent performance with 0.10 min median response'
         ]
@@ -154,8 +154,8 @@ export const CONTENT: { en: DashboardContent; es: DashboardContent } = {
       },
       results: [
         { metric: 'Response Time', ai: '0.26 min', human: '190 min', winner: 'ai' },
-        { metric: 'Max Concurrent', ai: '215', human: '100', winner: 'ai' },
-        { metric: 'Avg Concurrent', ai: '55.9', human: '43.8', winner: 'ai' },
+        { metric: 'Max Concurrent', ai: '215', human: '~10', winner: 'ai' },
+        { metric: 'Avg Concurrent', ai: '55.9', human: '~4', winner: 'ai' },
         { metric: 'Engagement Rate', ai: '73.7%', human: '80.0%', winner: 'human' },
       ]
     },
@@ -467,7 +467,7 @@ export const CONTENT: { en: DashboardContent; es: DashboardContent } = {
         title: 'Hallazgos Clave',
         items: [
           '99.9% más rápido (0.26 min vs 190 min)',
-          '2x+ capacidad simultánea (215 máx vs 100)',
+          '21x capacidad simultánea (215 máx vs ~10 por agente)',
           'Tasa engagement: 73.7% IA vs 80% Humano',
           'Rendimiento consistente con 0.10 min mediana'
         ]
@@ -478,8 +478,8 @@ export const CONTENT: { en: DashboardContent; es: DashboardContent } = {
       },
       results: [
         { metric: 'Tiempo Respuesta', ai: '0.26 min', human: '190 min', winner: 'ai' },
-        { metric: 'Máx Concurrente', ai: '215', human: '100', winner: 'ai' },
-        { metric: 'Prom Concurrente', ai: '55.9', human: '43.8', winner: 'ai' },
+        { metric: 'Máx Concurrente', ai: '215', human: '~10', winner: 'ai' },
+        { metric: 'Prom Concurrente', ai: '55.9', human: '~4', winner: 'ai' },
         { metric: 'Tasa Engagement', ai: '73.7%', human: '80.0%', winner: 'human' },
       ]
     },

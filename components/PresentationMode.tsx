@@ -261,8 +261,8 @@ const PresentationMode: React.FC<PresentationModeProps> = ({
             >
               <p className="text-gray-400 text-sm mb-2">Max Concurrent</p>
               <p className="text-4xl font-bold text-pr-yellow">215</p>
-              <p className="text-gray-500 text-sm">conversations (vs 100)</p>
-              <p className="text-pr-yellow text-xs mt-2 font-bold">2x+ capacity</p>
+              <p className="text-gray-500 text-sm">conversations (vs ~10/agent)</p>
+              <p className="text-pr-yellow text-xs mt-2 font-bold">21x capacity</p>
             </motion.div>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
