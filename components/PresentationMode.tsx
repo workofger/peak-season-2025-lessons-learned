@@ -9,13 +9,9 @@ import {
   XCircle,
   Lightbulb,
   Bot,
-  Users,
   Target,
   RefreshCw,
-  ArrowRight,
-  FileQuestion,
-  User,
-  FileText
+  ArrowRight
 } from 'lucide-react';
 import { DashboardContent } from '../types';
 
@@ -223,91 +219,7 @@ const PresentationMode: React.FC<PresentationModeProps> = ({
         </div>
       ),
     },
-    // Slide 5: Decisions
-    {
-      id: 'decisions',
-      render: () => {
-        const decisions = content.decisions.items.filter(item => item.type === 'decision');
-        const proposals = content.decisions.items.filter(item => item.type === 'proposal');
-        
-        return (
-          <div className="flex flex-col items-center justify-center h-full px-8 max-w-5xl mx-auto">
-            <motion.h2
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="text-3xl font-bold text-white mb-2"
-            >
-              {content.decisions.title}
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.1 }}
-              className="text-gray-400 text-sm mb-6 text-center max-w-2xl"
-            >
-              {content.decisions.description}
-            </motion.p>
-            
-            <div className="w-full grid grid-cols-2 gap-6">
-              {/* Decisions */}
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.2 }}
-              >
-                <div className="flex items-center gap-2 mb-3">
-                  <CheckCircle2 className="text-green-500" size={18} />
-                  <h3 className="text-sm font-bold text-white">{content.decisions.decisionsTitle}</h3>
-                  <span className="text-green-400 text-xs bg-green-500/20 px-2 py-0.5 rounded-full">{decisions.length}</span>
-                </div>
-                <div className="space-y-2">
-                  {decisions.map((item, i) => (
-                    <motion.div
-                      key={item.id}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 0.3 + i * 0.05 }}
-                      className="bg-green-500/5 border border-green-500/20 p-3 rounded-lg"
-                    >
-                      <p className="text-white text-sm">{item.title}</p>
-                      <p className="text-gray-500 text-xs mt-1">{item.owner}</p>
-                    </motion.div>
-                  ))}
-                </div>
-              </motion.div>
-              
-              {/* Proposals */}
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.3 }}
-              >
-                <div className="flex items-center gap-2 mb-3">
-                  <FileQuestion className="text-purple-400" size={18} />
-                  <h3 className="text-sm font-bold text-white">{content.decisions.proposalsTitle}</h3>
-                  <span className="text-purple-400 text-xs bg-purple-500/20 px-2 py-0.5 rounded-full">{proposals.length}</span>
-                </div>
-                <div className="space-y-2">
-                  {proposals.map((item, i) => (
-                    <motion.div
-                      key={item.id}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 0.4 + i * 0.05 }}
-                      className="bg-purple-500/5 border border-purple-500/20 p-3 rounded-lg"
-                    >
-                      <p className="text-white text-sm">{item.title}</p>
-                      <p className="text-gray-500 text-xs mt-1">{item.owner}</p>
-                    </motion.div>
-                  ))}
-                </div>
-              </motion.div>
-            </div>
-          </div>
-        );
-      },
-    },
-    // Slide 6: A/B Testing
+    // Slide 5: A/B Testing
     {
       id: 'ab-testing',
       render: () => (
@@ -385,7 +297,7 @@ const PresentationMode: React.FC<PresentationModeProps> = ({
         </div>
       ),
     },
-    // Slide 7: Fleet Survey
+    // Slide 6: Fleet Survey
     {
       id: 'fleet-survey',
       render: () => (
@@ -467,7 +379,7 @@ const PresentationMode: React.FC<PresentationModeProps> = ({
         </div>
       ),
     },
-    // Slide 8: Next Steps
+    // Slide 7: Next Steps (with Decisions)
     {
       id: 'next-steps',
       render: () => (
@@ -475,11 +387,40 @@ const PresentationMode: React.FC<PresentationModeProps> = ({
           <motion.h2
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="text-3xl font-bold text-white mb-8"
+            className="text-3xl font-bold text-white mb-6"
           >
             {content.nextSteps.title}
           </motion.h2>
+
+          {/* Decisions */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="w-full mb-6"
+          >
+            <div className="flex items-center gap-2 mb-3">
+              <CheckCircle2 className="text-green-500" size={16} />
+              <h3 className="text-sm font-bold text-white">{content.nextSteps.decisions.title}</h3>
+              <span className="text-green-400 text-xs bg-green-500/20 px-2 py-0.5 rounded-full">{content.nextSteps.decisions.items.length}</span>
+            </div>
+            <div className="grid grid-cols-3 gap-3">
+              {content.nextSteps.decisions.items.map((decision, i) => (
+                <motion.div
+                  key={decision.id}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.15 + i * 0.05 }}
+                  className="bg-green-500/5 border border-green-500/20 p-3 rounded-lg"
+                >
+                  <p className="text-white text-xs font-medium">{decision.title}</p>
+                  <p className="text-gray-500 text-xs mt-1">{decision.owner}</p>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
           
+          {/* Pillars */}
           <div className="grid grid-cols-3 gap-4 w-full">
             {content.nextSteps.pillars.map((pillar, i) => {
               const icons = { A: Bot, B: Target, C: RefreshCw };
@@ -495,7 +436,7 @@ const PresentationMode: React.FC<PresentationModeProps> = ({
                   key={pillar.id}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 + i * 0.1 }}
+                  transition={{ delay: 0.3 + i * 0.1 }}
                   className={`p-4 rounded-xl border ${colors[pillar.id]}`}
                 >
                   <div className="flex items-center gap-2 mb-3">
@@ -518,7 +459,7 @@ const PresentationMode: React.FC<PresentationModeProps> = ({
         </div>
       ),
     },
-    // Slide 9: End
+    // Slide 8: End
     {
       id: 'end',
       render: () => (

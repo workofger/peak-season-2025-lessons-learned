@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Bot, Target, RefreshCw, Users, ArrowRight } from 'lucide-react';
+import { Bot, Target, RefreshCw, Users, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { DashboardContent } from '../types';
 
 interface NextStepsProps {
@@ -36,6 +36,46 @@ const NextSteps: React.FC<NextStepsProps> = ({ content }) => {
           <h2 className="text-4xl lg:text-5xl font-bold text-white">
             {content.title}
           </h2>
+        </motion.div>
+
+        {/* Decisions Taken */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-10"
+        >
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-8 h-8 rounded-lg bg-green-500/20 flex items-center justify-center">
+              <CheckCircle2 className="text-green-500" size={18} />
+            </div>
+            <h3 className="text-xl font-bold text-white">{content.decisions.title}</h3>
+            <span className="text-green-400 text-sm bg-green-500/10 px-2 py-0.5 rounded-full">
+              {content.decisions.items.length} committed
+            </span>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {content.decisions.items.map((decision, i) => (
+              <motion.div
+                key={decision.id}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="bg-green-500/5 border border-green-500/20 rounded-xl p-4 hover:bg-green-500/10 transition-colors"
+              >
+                <div className="flex items-start justify-between mb-2">
+                  <span className="text-white font-medium text-sm">{decision.title}</span>
+                  <span className="text-green-400 text-xs font-mono bg-green-500/10 px-1.5 py-0.5 rounded">{decision.id}</span>
+                </div>
+                <p className="text-gray-400 text-xs mb-3">{decision.description}</p>
+                <div className="text-xs text-gray-500">
+                  Owner: <span className="text-green-400">{decision.owner}</span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
 
         {/* Three Pillars */}

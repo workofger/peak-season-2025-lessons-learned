@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import Hero from './components/Hero';
 import Purpose from './components/Purpose';
 import PeakLearnings from './components/PeakLearnings';
-import Decisions from './components/Decisions';
 import ABTestingSummary from './components/ABTestingSummary';
 import FleetSurvey from './components/FleetSurvey';
 import NextSteps from './components/NextSteps';
@@ -14,7 +13,7 @@ import PresentationMode from './components/PresentationMode';
 import { Globe, Presentation, Command } from 'lucide-react';
 import { CONTENT } from './constants';
 
-const SECTION_IDS = ['hero', 'purpose', 'peak-learnings', 'decisions', 'ab-testing', 'fleet-survey', 'next-steps'];
+const SECTION_IDS = ['hero', 'purpose', 'peak-learnings', 'ab-testing', 'fleet-survey', 'next-steps'];
 
 const App: React.FC = () => {
   const [activeSection, setActiveSection] = useState('hero');
@@ -241,14 +240,6 @@ const App: React.FC = () => {
         >
           <PeakLearnings content={content.peakLearnings} />
         </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-        >
-          <Decisions content={content.decisions} />
-        </motion.div>
         
         <motion.div
           initial={{ opacity: 0 }}
@@ -280,7 +271,7 @@ const App: React.FC = () => {
         <span className="text-gray-500">Navigate:</span>
         <span className="ml-2 px-1.5 py-0.5 bg-gray-800 rounded">↑↓</span>
         <span className="ml-1 text-gray-500">or</span>
-        <span className="ml-1 px-1.5 py-0.5 bg-gray-800 rounded">0-6</span>
+        <span className="ml-1 px-1.5 py-0.5 bg-gray-800 rounded">0-5</span>
       </div>
 
       {/* Command Palette */}

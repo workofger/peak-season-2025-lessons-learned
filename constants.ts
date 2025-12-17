@@ -8,10 +8,9 @@ export const CONTENT: { en: DashboardContent; es: DashboardContent } = {
         { id: 'hero', label: 'Start' },
         { id: 'purpose', label: 'Purpose' },
         { id: 'peak-learnings', label: '1. Peak Learnings' },
-        { id: 'decisions', label: '2. Decisions' },
-        { id: 'ab-testing', label: '3. A/B Testing' },
-        { id: 'fleet-survey', label: '4. Fleet Survey' },
-        { id: 'next-steps', label: '5. Next Steps' },
+        { id: 'ab-testing', label: '2. A/B Testing' },
+        { id: 'fleet-survey', label: '3. Fleet Survey' },
+        { id: 'next-steps', label: '4. Next Steps' },
       ],
       footer: {
         line1: 'Peak Season 2025',
@@ -128,29 +127,6 @@ export const CONTENT: { en: DashboardContent; es: DashboardContent } = {
           ]
         }
       },
-    },
-    decisions: {
-      title: 'Decisions & Proposals',
-      subtitle: 'Action Items',
-      description: 'Based on our Peak Season experience, these are the concrete actions we are committing to and the proposals under evaluation.',
-      decisionsTitle: 'Decisions Taken',
-      proposalsTitle: 'Proposals',
-      items: [
-        { id: 'DEC-1', title: 'AI-first approach for onboarding', description: 'Use Maya to guide new fleets through documentation and activation', owner: 'Product', type: 'decision' },
-        { id: 'DEC-2', title: 'Mandatory LiveOps rejection reasons', description: 'Capture why drivers are discarded to improve Matching algorithm', owner: 'Product', type: 'decision' },
-        { id: 'DEC-3', title: 'Matching "marking" action', description: 'Allow LiveOps to mark candidates as in-progress to avoid duplicates', owner: 'Product', type: 'decision' },
-        { id: 'PROP-1', title: 'Peak cadence + escalation protocol', description: 'Structured communication rhythm during high-volume periods', owner: 'LiveOps', type: 'proposal' },
-        { id: 'PROP-2', title: 'Standard offer template', description: 'Consistent negotiation format to reduce variability', owner: 'Supply', type: 'proposal' },
-        { id: 'PROP-3', title: 'Daily Peak digest for leadership', description: 'Summary of key metrics and blockers sent daily', owner: 'Operations', type: 'proposal' },
-      ],
-      labels: {
-        committed: 'committed',
-        underReview: 'under review',
-        decision: 'Decision',
-        proposal: 'Proposal',
-        descriptionCol: 'Description',
-        owner: 'Owner'
-      }
     },
     abTesting: {
       title: 'A/B Testing',
@@ -295,12 +271,12 @@ export const CONTENT: { en: DashboardContent; es: DashboardContent } = {
     },
     nextSteps: {
       title: 'Next Steps',
-      subtitle: 'Three pillars for improvement',
+      subtitle: 'Actions & Roadmap',
       pillars: [
         {
           id: 'A',
           title: 'AI-First Approach',
-      items: [
+          items: [
             'AI-guided onboarding flow',
             'Automated document collection',
             'End-to-end negotiation support',
@@ -311,7 +287,7 @@ export const CONTENT: { en: DashboardContent; es: DashboardContent } = {
         {
           id: 'B',
           title: 'Matching Improvements',
-      items: [
+          items: [
             'Mandatory rejection reasons',
             'Tag discarded vs active candidates',
             '"Mark" action for in-progress contacts',
@@ -330,9 +306,17 @@ export const CONTENT: { en: DashboardContent; es: DashboardContent } = {
           owner: 'Product'
         }
       ],
+      decisions: {
+        title: 'Decisions Taken',
+        items: [
+          { id: 'DEC-1', title: 'AI-first approach for onboarding', description: 'Use Maya to guide new fleets through documentation and activation', owner: 'Product', type: 'decision' },
+          { id: 'DEC-2', title: 'Mandatory LiveOps rejection reasons', description: 'Capture why drivers are discarded to improve Matching algorithm', owner: 'Product', type: 'decision' },
+          { id: 'DEC-3', title: 'Matching "marking" action', description: 'Allow LiveOps to mark candidates as in-progress to avoid duplicates', owner: 'Product', type: 'decision' },
+        ]
+      },
       credits: {
         title: 'Credits',
-      items: [
+        items: [
           { name: 'Julio', role: 'Documentation & Insights' },
           { name: 'Nicole', role: 'Survey Design' },
           { name: 'Gerardo', role: 'Product Lead' }
@@ -348,10 +332,9 @@ export const CONTENT: { en: DashboardContent; es: DashboardContent } = {
         { id: 'hero', label: 'Inicio' },
         { id: 'purpose', label: 'Propósito' },
         { id: 'peak-learnings', label: '1. Aprendizajes Peak' },
-        { id: 'decisions', label: '2. Decisiones' },
-        { id: 'ab-testing', label: '3. Pruebas A/B' },
-        { id: 'fleet-survey', label: '4. Encuesta Flotas' },
-        { id: 'next-steps', label: '5. Siguientes Pasos' },
+        { id: 'ab-testing', label: '2. Pruebas A/B' },
+        { id: 'fleet-survey', label: '3. Encuesta Flotas' },
+        { id: 'next-steps', label: '4. Siguientes Pasos' },
       ],
       footer: {
         line1: 'Peak Season 2025',
@@ -468,29 +451,6 @@ export const CONTENT: { en: DashboardContent; es: DashboardContent } = {
           ]
         }
       },
-    },
-    decisions: {
-      title: 'Decisiones y Propuestas',
-      subtitle: 'Acciones Concretas',
-      description: 'Basándonos en nuestra experiencia de Peak Season, estas son las acciones concretas a las que nos comprometemos y las propuestas en evaluación.',
-      decisionsTitle: 'Decisiones Tomadas',
-      proposalsTitle: 'Propuestas',
-      items: [
-        { id: 'DEC-1', title: 'Onboarding AI-First', description: 'Usar Maya para guiar a nuevas flotas en documentación y activación', owner: 'Producto', type: 'decision' },
-        { id: 'DEC-2', title: 'Razones de rechazo obligatorias (LiveOps)', description: 'Capturar por qué se descartan conductores para mejorar Matching', owner: 'Producto', type: 'decision' },
-        { id: 'DEC-3', title: 'Acción "Marcar" en Matching', description: 'Permitir a LiveOps marcar candidatos en progreso para evitar duplicados', owner: 'Producto', type: 'decision' },
-        { id: 'PROP-1', title: 'Cadencia Peak + protocolo escalación', description: 'Ritmo de comunicación estructurado durante periodos de alto volumen', owner: 'LiveOps', type: 'proposal' },
-        { id: 'PROP-2', title: 'Plantilla de oferta estándar', description: 'Formato de negociación consistente para reducir variabilidad', owner: 'Supply', type: 'proposal' },
-        { id: 'PROP-3', title: 'Resumen diario Peak para liderazgo', description: 'Resumen de métricas clave y bloqueadores enviado diariamente', owner: 'Operaciones', type: 'proposal' },
-      ],
-      labels: {
-        committed: 'comprometidas',
-        underReview: 'en revisión',
-        decision: 'Decisión',
-        proposal: 'Propuesta',
-        descriptionCol: 'Descripción',
-        owner: 'Responsable'
-      }
     },
     abTesting: {
       title: 'Pruebas A/B',
@@ -635,12 +595,12 @@ export const CONTENT: { en: DashboardContent; es: DashboardContent } = {
     },
     nextSteps: {
       title: 'Siguientes Pasos',
-      subtitle: 'Tres pilares de mejora',
+      subtitle: 'Acciones & Roadmap',
       pillars: [
         {
           id: 'A',
           title: 'Enfoque IA-First',
-      items: [
+          items: [
             'Flujo de onboarding guiado por IA',
             'Recolección automática de documentos',
             'Soporte de negociación de inicio a fin',
@@ -651,7 +611,7 @@ export const CONTENT: { en: DashboardContent; es: DashboardContent } = {
         {
           id: 'B',
           title: 'Mejoras de Matching',
-      items: [
+          items: [
             'Razones de rechazo obligatorias',
             'Etiquetar candidatos descartados vs activos',
             'Acción "Marcar" para contactos en progreso',
@@ -670,9 +630,17 @@ export const CONTENT: { en: DashboardContent; es: DashboardContent } = {
           owner: 'Producto'
         }
       ],
+      decisions: {
+        title: 'Decisiones Tomadas',
+        items: [
+          { id: 'DEC-1', title: 'Onboarding AI-First', description: 'Usar Maya para guiar a nuevas flotas en documentación y activación', owner: 'Producto', type: 'decision' },
+          { id: 'DEC-2', title: 'Razones de rechazo obligatorias (LiveOps)', description: 'Capturar por qué se descartan conductores para mejorar Matching', owner: 'Producto', type: 'decision' },
+          { id: 'DEC-3', title: 'Acción "Marcar" en Matching', description: 'Permitir a LiveOps marcar candidatos en progreso para evitar duplicados', owner: 'Producto', type: 'decision' },
+        ]
+      },
       credits: {
         title: 'Créditos',
-      items: [
+        items: [
           { name: 'Julio', role: 'Documentación e Insights' },
           { name: 'Nicole', role: 'Diseño de Encuesta' },
           { name: 'Gerardo', role: 'Líder de Producto' }

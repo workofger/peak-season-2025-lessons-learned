@@ -73,22 +73,6 @@ export interface DashboardContent {
       truths: { title: string; items: LearningItem[] };
     };
   };
-  decisions: {
-    title: string;
-    subtitle: string;
-    description: string;
-    decisionsTitle: string;
-    proposalsTitle: string;
-    items: Decision[];
-    labels: {
-      committed: string;
-      underReview: string;
-      decision: string;
-      proposal: string;
-      descriptionCol: string;
-      owner: string;
-    };
-  };
   abTesting: {
     title: string;
     subtitle: string;
@@ -166,6 +150,10 @@ export interface DashboardContent {
     title: string;
     subtitle: string;
     pillars: NextStepPillar[];
+    decisions: {
+      title: string;
+      items: Decision[];
+    };
     credits: {
       title: string;
       items: { name: string; role: string }[];
