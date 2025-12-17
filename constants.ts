@@ -43,18 +43,31 @@ export const CONTENT: { en: DashboardContent; es: DashboardContent } = {
           items: [
             { 
               type: 'worked', 
-              text: 'Weekly payments as key differentiator',
-              example: 'Reduces cash-flow friction, increases acceptance vs competition'
+              text: 'Drivers decide with stable criteria',
+              example: 'When pitch aligns to pay + proximity + frequency + hours, "yes" probability rises.',
+              productImplication: 'Matching + pitch + ranking should optimize these 4 features explicitly.',
+              nextBuild: ['Add decision drivers to Matching: payment, distance-to-CEDIS, hours/day, frequency', 'Rank suggestions by these factors']
             },
             { 
               type: 'worked', 
-              text: '70% of fleets stay with original negotiator',
-              example: 'Trust and relationship drive close rates over algorithm'
+              text: 'Weekly payments = real USP',
+              example: 'Increases trust, reduces cash-flow friction, strengthens reliability perception.',
+              productImplication: 'Productize this differentiator: visible, verifiable, and traceable.',
+              nextBuild: ['Payment breakdown + deposit status tracking + receipt', 'Surface "weekly payments" as value prop']
             },
             { 
               type: 'worked', 
-              text: 'WhatsApp for urgent replacements (<30s)',
-              example: 'Speed + operational continuity prioritized'
+              text: 'Speed wins in real operations',
+              example: 'LiveOps achieves continuity by assigning/replacing directly, especially in emergencies.',
+              productImplication: 'System must support the fast path without losing traceability.',
+              nextBuild: ['One-click replacement logging (who/why/when)', 'Simple reason codes for replacement']
+            },
+            { 
+              type: 'worked', 
+              text: 'Relationship-based negotiation closes deals',
+              example: 'Supply↔Fleet loyalty (favors, trust, continuity) influences close rate strongly.',
+              productImplication: 'CRM/History and relationship ownership must exist as product primitives.',
+              nextBuild: ['Negotiation history + relationship owner field', 'Fleet notes + commitments + outcomes']
             },
           ]
         },
@@ -63,18 +76,31 @@ export const CONTENT: { en: DashboardContent; es: DashboardContent } = {
           items: [
             { 
               type: 'didnt', 
-              text: 'Matching: 70-80% contacted → ~0% placed',
-              example: '70-80% of placements came from NEW fleets, not Matching'
+              text: 'Matching is not a placement tool today',
+              example: '70-80% of suggestions already contacted → almost none placed.',
+              productImplication: 'Matching operates as "black box" because it doesn\'t capture real decisions or reasons.',
+              nextBuild: ['Mandatory rejection reasons (structured)', 'Expose "discarded by LiveOps" with reason', 'Instrument outcomes: suggested→contacted→placed']
             },
             { 
               type: 'didnt', 
-              text: 'LiveOps rejection reasons not recorded',
-              example: 'Black box: we still don\'t know why drivers are discarded'
+              text: 'Urgent replacements bypass system',
+              example: 'LiveOps doesn\'t use Matching for urgency; assigns directly or creates requests to cancel and "mark".',
+              productImplication: 'Without logging, product loses visibility and doesn\'t learn from peak.',
+              nextBuild: ['Fast replacement workflow inside Admin', 'Auto-capture from WhatsApp/RespondIO']
             },
             { 
               type: 'didnt', 
-              text: 'Urgent substitutions happen off-system',
-              example: 'LiveOps replaces directly without using Matching or leaving records'
+              text: 'Zero traceability in Admin',
+              example: 'No documentation on rejections, negotiation history, or substitutions/placements.',
+              productImplication: 'Without traceability: no accountability, no continuous improvement, Matching disconnected from reality.',
+              nextBuild: ['Audit log: rejection reasons + substitutions + outcomes', 'Minimum required fields for operational decisions']
+            },
+            { 
+              type: 'didnt', 
+              text: 'Instability & penalties trigger churn',
+              example: 'Sudden capacity changes (Amazon) and penalties create distrust and churn.',
+              productImplication: 'Need stability/predictability/explanation mechanisms for retention.',
+              nextBuild: ['Capacity change alerts + planning view for fleets', 'Penalty transparency + risk-adjusted recommendations']
             },
           ]
         },
@@ -84,17 +110,20 @@ export const CONTENT: { en: DashboardContent; es: DashboardContent } = {
             { 
               type: 'truth', 
               text: 'Driver YES is predictable',
-              example: 'Pay + distance to CEDIS + days/week + hours/day'
+              example: 'Pay + distance to CEDIS + frequency + hours/day = consistent acceptance formula.',
+              productImplication: 'Matching should explicitly optimize for these 4 variables.'
             },
             { 
               type: 'truth', 
-              text: 'Driver NO causes churn',
-              example: 'Sudden capacity changes, ugly routes, Amazon penalties'
+              text: 'Driver NO → churn spiral',
+              example: 'Capacity volatility + penalties + ugly routes = perceived "unfair game".',
+              productImplication: 'Retention requires transparency and predictability tools.'
             },
             { 
               type: 'truth', 
-              text: 'Relationship > Algorithm (for now)',
-              example: '70% stay with their negotiator; Matching is bypassed'
+              text: 'Relationship > Algorithm (today)',
+              example: '70% stay with their negotiator; Matching is bypassed for speed.',
+              productImplication: 'Until we capture why, algorithms can\'t compete with human relationships.'
             },
           ]
         }
@@ -354,18 +383,31 @@ export const CONTENT: { en: DashboardContent; es: DashboardContent } = {
           items: [
             { 
               type: 'worked', 
-              text: 'Pagos semanales como diferenciador clave',
-              example: 'Reduce fricción de cashflow, aumenta aceptación vs competencia'
+              text: 'Los conductores deciden con criterios estables',
+              example: 'Cuando el pitch se alinea con pago + cercanía + frecuencia + horas, sube la probabilidad de "sí".',
+              productImplication: 'Matching + pitch + ranking deben optimizar estos 4 factores explícitamente.',
+              nextBuild: ['Agregar drivers de decisión a Matching: pago, distancia-CEDIS, horas/día, frecuencia', 'Rankear sugerencias por estos factores']
             },
             { 
               type: 'worked', 
-              text: '70% de flotas se quedan con su negociador',
-              example: 'Confianza y relación impulsan el cierre sobre el algoritmo'
+              text: 'Pagos semanales = USP real',
+              example: 'Aumenta confianza, reduce fricción de cashflow, fortalece percepción de seriedad.',
+              productImplication: 'Productizar este diferenciador: visible, verificable y trazable.',
+              nextBuild: ['Desglose de pago + status de depósito + comprobante', 'Mostrar "pagos semanales" como propuesta de valor']
             },
             { 
               type: 'worked', 
-              text: 'WhatsApp para reemplazos urgentes (<30s)',
-              example: 'Velocidad + continuidad operativa priorizadas'
+              text: 'La velocidad gana en operación real',
+              example: 'LiveOps logra continuidad asignando/reemplazando directo, especialmente en urgencias.',
+              productImplication: 'El sistema debe soportar el "camino rápido" sin perder trazabilidad.',
+              nextBuild: ['Logging de reemplazo en un clic (quién/por qué/cuándo)', 'Códigos de razón simples para reemplazo']
+            },
+            { 
+              type: 'worked', 
+              text: 'Negociación basada en relación cierra tratos',
+              example: 'Lealtad Supply↔Fleet (favores, confianza, continuidad) influye fuertemente en el cierre.',
+              productImplication: 'CRM/Historial y ownership de relación deben existir como primitivas de producto.',
+              nextBuild: ['Historial de negociación + campo de dueño de relación', 'Notas de fleet + compromisos + resultados']
             },
           ]
         },
@@ -374,18 +416,31 @@ export const CONTENT: { en: DashboardContent; es: DashboardContent } = {
           items: [
             { 
               type: 'didnt', 
-              text: 'Matching: 70-80% contactados → ~0% colocados',
-              example: '70-80% de colocaciones vinieron de flotas NUEVAS, no de Matching'
+              text: 'Matching no es herramienta de placement hoy',
+              example: '70-80% de sugerencias ya contactadas → casi ninguna colocada.',
+              productImplication: 'Matching opera como "caja negra" porque no captura decisiones reales ni razones.',
+              nextBuild: ['Razones de rechazo obligatorias (estructuradas)', 'Exponer "descartado por LiveOps" con razón', 'Instrumentar outcomes: sugerido→contactado→colocado']
             },
             { 
               type: 'didnt', 
-              text: 'Razones de rechazo de LiveOps no registradas',
-              example: 'Caja negra: aún no sabemos por qué se descartan conductores'
+              text: 'Reemplazos urgentes omiten el sistema',
+              example: 'LiveOps no usa Matching para urgencias; asigna directo o crea requests para cancelar y "marcar".',
+              productImplication: 'Sin registro, producto pierde visibilidad y no aprende del peak.',
+              nextBuild: ['Flujo de reemplazo rápido dentro de Admin', 'Auto-captura desde WhatsApp/RespondIO']
             },
             { 
               type: 'didnt', 
-              text: 'Sustituciones urgentes fuera del sistema',
-              example: 'LiveOps reemplaza directamente sin usar Matching ni dejar registro'
+              text: 'Cero trazabilidad en Admin',
+              example: 'Sin documentación de rechazos, historial de negociación, ni sustituciones/colocaciones.',
+              productImplication: 'Sin trazabilidad: sin accountability, sin mejora continua, Matching desconectado de la realidad.',
+              nextBuild: ['Audit log: razones de rechazo + sustituciones + outcomes', 'Campos mínimos requeridos para decisiones operativas']
+            },
+            { 
+              type: 'didnt', 
+              text: 'Inestabilidad y penalizaciones disparan churn',
+              example: 'Cambios súbitos de capacidad (Amazon) y penalizaciones crean desconfianza y churn.',
+              productImplication: 'Se necesitan mecanismos de estabilidad/previsibilidad/explicación para retención.',
+              nextBuild: ['Alertas de cambio de capacidad + vista de planificación para fleets', 'Transparencia de penalizaciones + recomendaciones ajustadas a riesgo']
             },
           ]
         },
@@ -395,17 +450,20 @@ export const CONTENT: { en: DashboardContent; es: DashboardContent } = {
             { 
               type: 'truth', 
               text: 'El SÍ del conductor es predecible',
-              example: 'Pago + distancia a CEDIS + días/semana + horas/día'
+              example: 'Pago + distancia a CEDIS + frecuencia + horas/día = fórmula consistente de aceptación.',
+              productImplication: 'Matching debería optimizar explícitamente por estas 4 variables.'
             },
             { 
               type: 'truth', 
-              text: 'El NO del conductor causa churn',
-              example: 'Cambios súbitos de capacidad, rutas feas, penalizaciones Amazon'
+              text: 'El NO del conductor → espiral de churn',
+              example: 'Volatilidad de capacidad + penalizaciones + rutas feas = percepción de "juego injusto".',
+              productImplication: 'La retención requiere herramientas de transparencia y previsibilidad.'
             },
             { 
               type: 'truth', 
-              text: 'Relación > Algoritmo (por ahora)',
-              example: '70% se quedan con su negociador; Matching se omite'
+              text: 'Relación > Algoritmo (hoy)',
+              example: '70% se quedan con su negociador; Matching se omite por velocidad.',
+              productImplication: 'Hasta que capturemos el por qué, los algoritmos no pueden competir con relaciones humanas.'
             },
           ]
         }

@@ -7,6 +7,8 @@ export interface LearningItem {
   type: 'worked' | 'didnt' | 'truth';
   text: string;
   example?: string;
+  productImplication?: string;
+  nextBuild?: string[];
 }
 
 export interface ABTestResult {
