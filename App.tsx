@@ -1,26 +1,20 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import Sidebar from './components/Sidebar';
+import React, { useState, useEffect, useCallback } from 'react';
+import { motion } from 'framer-motion';
+import Hero from './components/Hero';
+import Purpose from './components/Purpose';
+import PeakLearnings from './components/PeakLearnings';
+import Decisions from './components/Decisions';
+import ABTestingSummary from './components/ABTestingSummary';
+import FleetSurvey from './components/FleetSurvey';
+import NextSteps from './components/NextSteps';
 import MobileNav from './components/MobileNav';
 import ProgressBar from './components/ProgressBar';
-import Hero from './components/Hero';
-import Section from './components/Section';
-import ExecutiveSummary from './components/ExecutiveSummary';
-import ProductInsights from './components/ProductInsights'; 
-import BeyondProduct from './components/BeyondProduct'; 
-import ThemesSection from './components/ThemesSection';
-import InitiativesSection from './components/InitiativesSection';
-import RaciSection from './components/RaciSection';
 import CommandPalette from './components/CommandPalette';
 import PresentationMode from './components/PresentationMode';
-import { Globe, Presentation, Download, Command } from 'lucide-react';
+import { Globe, Presentation, Command } from 'lucide-react';
 import { CONTENT } from './constants';
 
-const SECTION_IDS = [
-  'hero', 'purpose', 'summary', 'overview', 
-  'product-insights', 'beyond-product', 'themes', 
-  'initiatives', 'raci', 'open-items'
-];
+const SECTION_IDS = ['hero', 'purpose', 'peak-learnings', 'decisions', 'ab-testing', 'fleet-survey', 'next-steps'];
 
 const App: React.FC = () => {
   const [activeSection, setActiveSection] = useState('hero');
@@ -29,11 +23,10 @@ const App: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
   const [isPresentationMode, setIsPresentationMode] = useState(false);
-  const mainRef = useRef<HTMLElement>(null);
 
   const content = CONTENT[lang];
 
-  // Sync URL hash with active section (Deep Links)
+  // Sync URL hash with active section
   useEffect(() => {
     const hash = window.location.hash.slice(1);
     if (hash && SECTION_IDS.includes(hash)) {
@@ -53,7 +46,7 @@ const App: React.FC = () => {
     }
   }, [activeSection]);
 
-  // Scroll Spy logic + Progress tracking
+  // Scroll Spy + Progress
   useEffect(() => {
     const handleScroll = () => {
       const sections = document.querySelectorAll('section');
@@ -67,7 +60,6 @@ const App: React.FC = () => {
       });
       setActiveSection(current);
 
-      // Calculate scroll progress
       const scrollTop = window.scrollY;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
@@ -93,16 +85,8 @@ const App: React.FC = () => {
     document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth' });
   }, [activeSection]);
 
-  const navigateToIndex = useCallback((index: number) => {
-    if (index >= 0 && index < SECTION_IDS.length) {
-      const targetId = SECTION_IDS[index];
-      document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, []);
-
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Don't trigger if typing in an input or if modals are open
       if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
       if (isCommandPaletteOpen || isPresentationMode) return;
 
@@ -120,7 +104,6 @@ const App: React.FC = () => {
         return;
       }
 
-      // Arrow navigation
       if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ') {
         if (e.key === ' ') e.preventDefault();
         navigateToSection('next');
@@ -128,65 +111,75 @@ const App: React.FC = () => {
         navigateToSection('prev');
       }
 
-      // Number keys 0-9 for quick section access
       const num = parseInt(e.key);
-      if (!isNaN(num)) {
-        navigateToIndex(num);
+      if (!isNaN(num) && num >= 0 && num <= 6) {
+        const targetId = SECTION_IDS[num];
+        if (targetId) {
+          document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth' });
+        }
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [navigateToSection, navigateToIndex, isCommandPaletteOpen, isPresentationMode]);
+  }, [navigateToSection, isCommandPaletteOpen, isPresentationMode]);
 
   const toggleLang = () => {
     setLang(prev => prev === 'en' ? 'es' : 'en');
   };
 
-  const handleExportPDF = async () => {
-    const html2pdf = (await import('html2pdf.js')).default;
-    const element = document.getElementById('main-content');
-    if (!element) return;
+  // Sidebar component
+  const Sidebar = () => (
+    <nav className="fixed left-0 top-0 h-full w-64 bg-pr-black/95 backdrop-blur border-r border-pr-gray hidden lg:flex flex-col z-50">
+      <div className="p-6">
+        <div className="flex items-center gap-3 mb-8">
+          <img 
+            src="./Isotipo.png" 
+            alt="PartRunner" 
+            className="w-10 h-10 rounded-lg"
+          />
+          <span className="font-bold text-xl text-white">{content.nav.title}</span>
+        </div>
+      </div>
 
-    const opt = {
-      margin: 0.5,
-      filename: `peak-season-2025-lessons-${lang}.pdf`,
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2, useCORS: true },
-      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-    };
+      <div className="flex-1 px-4 space-y-1">
+        {content.nav.items.map((item, index) => (
+          <button
+            key={item.id}
+            onClick={() => document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth' })}
+            className={`w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-all flex items-center gap-3 ${
+              activeSection === item.id
+                ? 'bg-pr-yellow/10 text-pr-yellow'
+                : 'text-gray-400 hover:bg-pr-gray hover:text-white'
+            }`}
+          >
+            <span className="text-xs font-mono text-gray-600 w-4">{index}</span>
+            {item.label}
+          </button>
+        ))}
+      </div>
 
-    html2pdf().set(opt).from(element).save();
-  };
-
-  // Animation variants for sections
-  const sectionVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: { duration: 0.6, ease: 'easeOut' }
-    }
-  };
+      <div className="p-4 border-t border-pr-gray text-xs text-gray-600 text-center">
+        <p>{content.nav.footer.line1}</p>
+        <p>{content.nav.footer.line2}</p>
+      </div>
+    </nav>
+  );
 
   return (
     <div className="flex bg-pr-black min-h-screen text-white">
-      {/* Progress Bar */}
       <ProgressBar progress={scrollProgress} />
-
-      {/* Desktop Sidebar */}
-      <Sidebar 
-        activeSection={activeSection} 
-        content={content.nav} 
-        onNavigate={(id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })}
-      />
-
-      {/* Mobile Navigation */}
+      
+      <Sidebar />
+      
       <MobileNav 
         isOpen={isMobileMenuOpen}
         onToggle={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         activeSection={activeSection}
-        content={content.nav}
+        content={{ 
+          ...content.nav, 
+          contents: 'Contents',
+        }}
         onNavigate={(id) => {
           document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
           setIsMobileMenuOpen(false);
@@ -215,20 +208,10 @@ const App: React.FC = () => {
           <Presentation size={16} />
         </button>
 
-        {/* Export PDF */}
-        <button 
-          onClick={handleExportPDF}
-          className="hidden md:flex items-center gap-2 bg-pr-black/80 backdrop-blur-md border border-pr-gray hover:border-pr-yellow p-2 rounded-lg text-xs transition-all text-gray-400 hover:text-pr-yellow"
-          aria-label="Export to PDF"
-          title="Export PDF"
-        >
-          <Download size={16} />
-        </button>
-
         {/* Language Toggle */}
         <button 
           onClick={toggleLang}
-          className="flex items-center gap-2 bg-pr-black/80 backdrop-blur-md border border-pr-gray hover:border-pr-yellow px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all shadow-lg text-white hover:text-pr-yellow"
+          className="flex items-center gap-2 bg-pr-black/80 backdrop-blur-md border border-pr-gray hover:border-pr-yellow px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all text-white hover:text-pr-yellow"
           aria-label={`Switch to ${lang === 'en' ? 'Spanish' : 'English'}`}
         >
           <Globe size={14} />
@@ -236,167 +219,71 @@ const App: React.FC = () => {
         </button>
       </div>
 
-      {/* Main Content */}
       <main 
-        id="main-content" 
-        ref={mainRef}
-        className="flex-1 lg:ml-64 w-full relative"
+        id="main-content"
+        className="flex-1 lg:ml-64 w-full"
         role="main"
-        aria-label="Main content"
       >
         <Hero content={content.hero} />
-
-        {/* 0. Purpose */}
+        
         <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={sectionVariants}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
         >
-          <Section id="purpose" title={content.purpose.title} subtitle={content.purpose.subtitle}>
-            <div className="bg-gradient-to-r from-gray-900 to-gray-800 p-8 lg:p-12 rounded-2xl border-l-4 border-pr-yellow shadow-2xl">
-              <p className="text-xl lg:text-2xl font-light leading-relaxed text-gray-200 mb-6">
-                {content.purpose.text}
-              </p>
-              <div className="flex flex-wrap gap-4 mt-8">
-                {content.purpose.tags.map((tag, i) => (
-                  <div key={i} className="flex items-center gap-2 text-sm text-gray-400 bg-black/30 px-3 py-1 rounded-full border border-gray-700">
-                    <span className="w-2 h-2 bg-pr-yellow rounded-full"></span> {tag}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </Section>
+          <Purpose content={content.purpose} />
+        </motion.div>
+        
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+        >
+          <PeakLearnings content={content.peakLearnings} />
         </motion.div>
 
         <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={sectionVariants}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
         >
-          <ExecutiveSummary content={content.summary} />
+          <Decisions content={content.decisions} />
         </motion.div>
-
-        {/* 2. Overview */}
+        
         <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={sectionVariants}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
         >
-          <Section id="overview" title={content.overview.title} subtitle={content.overview.subtitle}>
-            <div className="relative border-l border-gray-800 ml-4 space-y-12 my-12">
-              {content.overview.timeline.map((item, i) => (
-                <motion.div 
-                  key={i} 
-                  className="relative pl-8 group"
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                >
-                  <span className={`absolute -left-[9px] top-0 w-4 h-4 rounded-full border-4 border-pr-black ${item.isError ? 'bg-red-500' : 'bg-pr-yellow'}`}></span>
-                  <span className="text-xs font-mono text-gray-500 uppercase mb-1 block">{item.date}</span>
-                  <h3 className={`text-xl font-bold ${item.isError ? 'text-red-400' : 'text-white'}`}>{item.title}</h3>
-                  <p className="text-gray-400 mt-2">{item.desc}</p>
-                </motion.div>
-              ))}
-            </div>
-          </Section>
+          <ABTestingSummary content={content.abTesting} />
         </motion.div>
-
-        {/* 3. Product Insights */}
+        
         <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={sectionVariants}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
         >
-          <ProductInsights content={content.productInsights} />
+          <FleetSurvey content={content.fleetSurvey} />
         </motion.div>
-
-        {/* 4. Beyond Product */}
+        
         <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={sectionVariants}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
         >
-          <BeyondProduct content={content.beyondProduct} />
+          <NextSteps content={content.nextSteps} />
         </motion.div>
-
-        {/* 5. Themes */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={sectionVariants}
-        >
-          <ThemesSection content={content.themes} />
-        </motion.div>
-
-        {/* 6. Initiatives */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={sectionVariants}
-        >
-          <InitiativesSection content={content.initiatives} />
-        </motion.div>
-
-        {/* 7. RACI */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={sectionVariants}
-        >
-          <RaciSection content={content.raci} />
-        </motion.div>
-
-        {/* 8. Open Items */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={sectionVariants}
-        >
-          <Section id="open-items" title={content.openItems.title} subtitle={content.openItems.subtitle}>
-            <div className="bg-pr-gray/20 p-8 rounded-xl border border-gray-800">
-              <ul className="space-y-4">
-                {content.openItems.items.map((item, i) => (
-                  <motion.li 
-                    key={i} 
-                    className="flex items-start gap-4"
-                    initial={{ opacity: 0, x: -10 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.05 }}
-                  >
-                    <div className="w-6 h-6 rounded-full border border-gray-600 flex items-center justify-center text-xs text-gray-500 mt-0.5">{i+1}</div>
-                    <span className="text-gray-300">{item}</span>
-                  </motion.li>
-                ))}
-              </ul>
-            </div>
-            <div className="mt-20 text-center text-gray-600 text-sm pb-10">
-              {content.openItems.footer}
-            </div>
-          </Section>
-        </motion.div>
-
-        {/* Keyboard hints footer */}
-        <div className="hidden lg:block fixed bottom-4 right-4 z-40 text-xs text-gray-600 bg-pr-black/80 backdrop-blur px-3 py-2 rounded-lg border border-gray-800 no-print">
-          <span className="text-gray-500">Navigate:</span>
-          <span className="ml-2 px-1 bg-gray-800 rounded">↑↓</span>
-          <span className="ml-1 text-gray-500">or</span>
-          <span className="ml-1 px-1 bg-gray-800 rounded">0-9</span>
-        </div>
       </main>
 
-      {/* Command Palette Modal */}
+      {/* Keyboard hints */}
+      <div className="hidden lg:block fixed bottom-4 right-4 z-40 text-xs text-gray-600 bg-pr-black/80 backdrop-blur px-3 py-2 rounded-lg border border-gray-800 no-print">
+        <span className="text-gray-500">Navigate:</span>
+        <span className="ml-2 px-1.5 py-0.5 bg-gray-800 rounded">↑↓</span>
+        <span className="ml-1 text-gray-500">or</span>
+        <span className="ml-1 px-1.5 py-0.5 bg-gray-800 rounded">0-6</span>
+      </div>
+
+      {/* Command Palette */}
       <CommandPalette 
         isOpen={isCommandPaletteOpen}
         onClose={() => setIsCommandPaletteOpen(false)}
@@ -406,7 +293,7 @@ const App: React.FC = () => {
           setIsCommandPaletteOpen(false);
         }}
         onToggleLang={toggleLang}
-        onExportPDF={handleExportPDF}
+        onExportPDF={() => {}}
         onPresentationMode={() => {
           setIsCommandPaletteOpen(false);
           setIsPresentationMode(true);

@@ -18,7 +18,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeSection, content, onNavigate })
       <div className="p-8 pb-4">
         <div className="flex items-center gap-3 mb-8">
           <img 
-            src="https://media.licdn.com/dms/image/v2/C4E0BAQG0Qe2-6i5mOQ/company-logo_200_200/company-logo_200_200/0/1630646797207?e=2147483647&v=beta&t=7y2k2Q_498-8f8X_949494949" 
+            src="./Isotipo.png" 
             alt="PartRunner Logo" 
             className="w-10 h-10 rounded-lg object-cover"
           />

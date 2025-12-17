@@ -1,181 +1,173 @@
-import React from 'react';
-
 export interface NavItem {
   id: string;
   label: string;
 }
 
+export interface LearningItem {
+  type: 'worked' | 'didnt' | 'truth';
+  text: string;
+  example?: string;
+}
+
+export interface ABTestResult {
+  metric: string;
+  ai: string;
+  human: string;
+  winner: 'ai' | 'human' | 'tie';
+}
+
+export interface SurveyDataPoint {
+  label: string;
+  value: number;
+  color?: string;
+}
+
+export interface NextStepPillar {
+  id: 'A' | 'B' | 'C';
+  title: string;
+  items: string[];
+  owner: string;
+}
+
 export interface Decision {
   id: string;
   title: string;
-  date: string;
-  owner: string;
-  evidence: string;
-  status: 'taken' | 'proposed';
-}
-
-export interface EvidenceDetail {
-  context: string;
-  dataPoints: { label: string; value: string; trend?: 'up' | 'down' | 'neutral' }[];
-  quote?: string;
-  conclusion: string;
-}
-
-export interface EvidencePack {
-  id: string;
-  title: string;
-  subtitle: string;
-  content: string[];
-  artifacts: string[];
-  status: string;
-  details?: EvidenceDetail; // Added for expanded view
-}
-
-export interface Initiative {
-  id: string;
-  title: string;
   description: string;
-  output: string;
   owner: string;
-  evidence: string;
-}
-
-export interface RaciRow {
-  type: 'Decision' | 'Proposal';
-  id: string;
-  item: string;
-  r: string;
-  a: string;
-  c: string;
-  i: string;
-}
-
-export interface ThemeItem {
-  title: string;
-  iconKey: string;
-  diagnosis: string;
-  action: string;
-  relatedIds: string[];
+  type: 'decision' | 'proposal';
 }
 
 export interface DashboardContent {
   nav: {
     title: string;
-    contents: string;
+    items: NavItem[];
     footer: {
       line1: string;
       line2: string;
     };
-    items: NavItem[];
   };
   hero: {
     badge: string;
-    titleLine1: string;
-    titleLine2: string;
-    ownerLabel: string;
-    periodLabel: string;
-    statusLabel: string;
-    statusValue: string;
-    evidenceNote: string;
+    title: string;
+    subtitle: string;
+    period: string;
     cta: string;
   };
   purpose: {
     title: string;
     subtitle: string;
-    text: React.ReactNode;
+    text: string;
+    strikeText: string;
+    highlight: string;
     tags: string[];
   };
-  summary: {
+  peakLearnings: {
     title: string;
     subtitle: string;
-    whatWorked: {
-      title: string;
-      items: { label: string; text: string }[];
-    };
-    whatHurt: {
-      title: string;
-      items: { label: string; text: string }[];
-    };
-    lessons: {
-      title: string;
-      items: { id: string; text: string }[];
-    };
-    decisions: {
-      title: string;
-      tableHeaders: {
-        id: string;
-        decision: string;
-        owner: string;
-        evidence: string;
-      };
-      items: Decision[];
+    intro: string;
+    sections: {
+      worked: { title: string; items: LearningItem[] };
+      didnt: { title: string; items: LearningItem[] };
+      truths: { title: string; items: LearningItem[] };
     };
   };
-  overview: {
-    title: string;
-    subtitle: string;
-    timeline: {
-      date: string;
-      title: string;
-      desc: string;
-      isError?: boolean;
-    }[];
-  };
-  productInsights: {
-    title: string;
-    subtitle: string;
-    clickHint: string;
-    items: EvidencePack[];
-  };
-  beyondProduct: {
-    title: string;
-    subtitle: string;
-    items: EvidencePack[];
-  };
-  themes: {
-    title: string;
-    subtitle: string;
-    labels: {
-      diagnosis: string;
-      action: string;
-      linkedTo: string;
-    };
-    items: ThemeItem[];
-  };
-  raci: {
+  decisions: {
     title: string;
     subtitle: string;
     description: string;
-    headers: {
-      type: string;
-      id: string;
-      item: string;
-      r: string;
-      a: string;
-      c: string;
-      i: string;
-    };
-    legend: {
-      r: string;
-      a: string;
-      c: string;
-      i: string;
-    };
-    items: RaciRow[];
-  };
-  initiatives: {
-    title: string;
-    subtitle: string;
+    decisionsTitle: string;
+    proposalsTitle: string;
+    items: Decision[];
     labels: {
+      committed: string;
+      underReview: string;
+      decision: string;
+      proposal: string;
+      descriptionCol: string;
       owner: string;
-      evidence: string;
     };
-    items: Initiative[];
   };
-  openItems: {
+  abTesting: {
     title: string;
     subtitle: string;
-    items: string[];
-    footer: string;
+    whatWeTested: {
+      title: string;
+      items: string[];
+    };
+    whatWeLearned: {
+      title: string;
+      items: string[];
+    };
+    whatsNext: {
+      title: string;
+      text: string;
+    };
+    results: ABTestResult[];
+    speakerNotes?: string[];
+  };
+  fleetSurvey: {
+    title: string;
+    subtitle: string;
+    sampleSize: string;
+    highlights: string[];
+    preferredExperience: {
+      title: string;
+      data: SurveyDataPoint[];
+    };
+    preferredRadius: {
+      title: string;
+      data: SurveyDataPoint[];
+    };
+    topPriorities: {
+      title: string;
+      items: { label: string; percent: number }[];
+    };
+    painPoints: {
+      title: string;
+      items: string[];
+    };
+    paymentsInsights: {
+      headline: string;
+      subtitle: string;
+      chartData: {
+        breakdown: { count: number; percent: number };
+        total: { count: number; percent: number };
+      };
+      keyNeeds: string[];
+      friction: string;
+      fleetComments: string[];
+      productInsights: {
+        id: string;
+        title: string;
+        description: string;
+      }[];
+    };
+    labels: {
+      openComments: string;
+      topPriority: string;
+      preferredPlatform: string;
+      mainOpportunity: string;
+      optimizeApp: string;
+      forPayments: string;
+      featureImportance: string;
+      platformPreference: string;
+      whatFleetsWant: string;
+      breakdownDetail: string;
+      justTotal: string;
+      topNeeds: string;
+      currentFriction: string;
+      fleetVerbatim: string;
+      productOpportunities: string;
+    };
+  };
+  nextSteps: {
+    title: string;
+    subtitle: string;
+    pillars: NextStepPillar[];
+    credits: {
+      title: string;
+      items: { name: string; role: string }[];
+    };
+    closing: string;
   };
 }

@@ -5,12 +5,16 @@ import {
   ChevronLeft, 
   ChevronRight, 
   Home,
-  ThumbsUp,
-  ThumbsDown,
-  AlertTriangle,
-  Target,
-  Zap,
+  CheckCircle2,
+  XCircle,
+  Lightbulb,
+  Bot,
   Users,
+  Target,
+  RefreshCw,
+  ArrowRight,
+  FileQuestion,
+  User,
   FileText
 } from 'lucide-react';
 import { DashboardContent } from '../types';
@@ -26,7 +30,6 @@ interface PresentationModeProps {
 const PresentationMode: React.FC<PresentationModeProps> = ({
   isOpen,
   onClose,
-  sections,
   content,
 }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -53,25 +56,24 @@ const PresentationMode: React.FC<PresentationModeProps> = ({
             transition={{ delay: 0.3 }}
             className="text-5xl lg:text-7xl font-bold text-white mb-4"
           >
-            {content.hero.titleLine1}
+            {content.hero.title}
           </motion.h1>
-          <motion.h2
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="text-4xl lg:text-6xl font-bold text-pr-yellow mb-12"
+            className="text-2xl lg:text-3xl text-pr-yellow font-medium mb-8"
           >
-            {content.hero.titleLine2}
-          </motion.h2>
-          <motion.div
+            {content.hero.subtitle}
+          </motion.p>
+          <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.6 }}
-            className="flex items-center gap-8 text-gray-400"
+            transition={{ delay: 0.5 }}
+            className="text-gray-400"
           >
-            <span><strong className="text-white">Gerardo Sánchez Galván</strong></span>
-            <span>Nov 15 – Dec 15, 2025</span>
-          </motion.div>
+            {content.hero.period}
+          </motion.p>
         </div>
       ),
     },
@@ -98,9 +100,12 @@ const PresentationMode: React.FC<PresentationModeProps> = ({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-xl lg:text-2xl text-gray-300 text-center leading-relaxed"
+            className="text-xl lg:text-2xl text-center leading-relaxed"
           >
-            {content.purpose.text}
+            <span className="text-gray-300">{content.purpose.text} </span>
+            <span className="text-red-400 line-through">{content.purpose.strikeText}</span>
+            <br />
+            <span className="text-white font-medium">{content.purpose.highlight}</span>
           </motion.div>
           <motion.div
             initial={{ opacity: 0 }}
@@ -117,9 +122,9 @@ const PresentationMode: React.FC<PresentationModeProps> = ({
         </div>
       ),
     },
-    // Slide 2: What Worked
+    // Slide 2: Peak Learnings - What Worked
     {
-      id: 'what-worked',
+      id: 'worked',
       render: () => (
         <div className="flex flex-col items-center justify-center h-full px-8 max-w-4xl mx-auto">
           <motion.div
@@ -128,33 +133,32 @@ const PresentationMode: React.FC<PresentationModeProps> = ({
             className="flex items-center gap-4 mb-8"
           >
             <div className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center">
-              <ThumbsUp className="text-green-500" size={32} />
+              <CheckCircle2 className="text-green-500" size={32} />
             </div>
-            <h2 className="text-4xl font-bold text-white">{content.summary.whatWorked.title}</h2>
+            <h2 className="text-4xl font-bold text-white">{content.peakLearnings.sections.worked.title}</h2>
           </motion.div>
-          <div className="space-y-6 w-full">
-            {content.summary.whatWorked.items.map((item, i) => (
+          <div className="space-y-4 w-full">
+            {content.peakLearnings.sections.worked.items.map((item, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.2 + i * 0.15 }}
-                className="flex items-start gap-4 bg-green-900/10 border border-green-900/30 p-6 rounded-xl"
+                className="bg-green-900/10 border border-green-900/30 p-5 rounded-xl"
               >
-                <span className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0" />
-                <div>
-                  <strong className="text-white text-lg">{item.label}</strong>
-                  <p className="text-gray-400 mt-1">{item.text}</p>
-                </div>
+                <p className="text-white font-medium text-lg">{item.text}</p>
+                {item.example && (
+                  <p className="text-gray-400 text-sm mt-2 italic">"{item.example}"</p>
+                )}
               </motion.div>
             ))}
           </div>
         </div>
       ),
     },
-    // Slide 3: What Hurt
+    // Slide 3: Peak Learnings - What Didn't Work
     {
-      id: 'what-hurt',
+      id: 'didnt',
       render: () => (
         <div className="flex flex-col items-center justify-center h-full px-8 max-w-4xl mx-auto">
           <motion.div
@@ -163,33 +167,32 @@ const PresentationMode: React.FC<PresentationModeProps> = ({
             className="flex items-center gap-4 mb-8"
           >
             <div className="w-16 h-16 rounded-full bg-red-500/20 flex items-center justify-center">
-              <ThumbsDown className="text-red-500" size={32} />
+              <XCircle className="text-red-500" size={32} />
             </div>
-            <h2 className="text-4xl font-bold text-white">{content.summary.whatHurt.title}</h2>
+            <h2 className="text-4xl font-bold text-white">{content.peakLearnings.sections.didnt.title}</h2>
           </motion.div>
           <div className="space-y-4 w-full">
-            {content.summary.whatHurt.items.map((item, i) => (
+            {content.peakLearnings.sections.didnt.items.map((item, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, x: 30 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.2 + i * 0.1 }}
-                className="flex items-start gap-4 bg-red-900/10 border border-red-900/30 p-5 rounded-xl"
+                transition={{ delay: 0.2 + i * 0.15 }}
+                className="bg-red-900/10 border border-red-900/30 p-5 rounded-xl"
               >
-                <span className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0" />
-                <div>
-                  <strong className="text-white">{item.label}</strong>
-                  <p className="text-gray-400 text-sm mt-1">{item.text}</p>
-                </div>
+                <p className="text-white font-medium text-lg">{item.text}</p>
+                {item.example && (
+                  <p className="text-gray-400 text-sm mt-2 italic">"{item.example}"</p>
+                )}
               </motion.div>
             ))}
           </div>
         </div>
       ),
     },
-    // Slide 4: 3 Lessons
+    // Slide 4: The 3 Truths
     {
-      id: 'lessons',
+      id: 'truths',
       render: () => (
         <div className="flex flex-col items-center justify-center h-full px-8 max-w-5xl mx-auto">
           <motion.div
@@ -197,11 +200,11 @@ const PresentationMode: React.FC<PresentationModeProps> = ({
             animate={{ opacity: 1 }}
             className="flex items-center gap-3 mb-8"
           >
-            <AlertTriangle className="text-pr-yellow" size={32} />
-            <h2 className="text-3xl font-bold text-white">{content.summary.lessons.title}</h2>
+            <Lightbulb className="text-pr-yellow" size={32} />
+            <h2 className="text-3xl font-bold text-white">{content.peakLearnings.sections.truths.title}</h2>
           </motion.div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
-            {content.summary.lessons.items.map((lesson, i) => (
+            {content.peakLearnings.sections.truths.items.map((item, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 30 }}
@@ -209,8 +212,11 @@ const PresentationMode: React.FC<PresentationModeProps> = ({
                 transition={{ delay: 0.3 + i * 0.2 }}
                 className="bg-pr-yellow/5 border-l-4 border-pr-yellow p-6 rounded-r-xl"
               >
-                <span className="text-5xl font-bold text-pr-yellow block mb-4">{lesson.id}</span>
-                <p className="text-gray-300 leading-relaxed">{lesson.text}</p>
+                <span className="text-4xl font-bold text-pr-yellow block mb-3">0{i + 1}</span>
+                <p className="text-white font-medium mb-2">{item.text}</p>
+                {item.example && (
+                  <p className="text-gray-400 text-sm italic">"{item.example}"</p>
+                )}
               </motion.div>
             ))}
           </div>
@@ -220,36 +226,90 @@ const PresentationMode: React.FC<PresentationModeProps> = ({
     // Slide 5: Decisions
     {
       id: 'decisions',
-      render: () => (
-        <div className="flex flex-col items-center justify-center h-full px-8 max-w-5xl mx-auto">
-          <motion.h2
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-3xl font-bold text-white mb-8"
-          >
-            {content.summary.decisions.title}
-          </motion.h2>
-          <div className="w-full space-y-3">
-            {content.summary.decisions.items.map((d, i) => (
+      render: () => {
+        const decisions = content.decisions.items.filter(item => item.type === 'decision');
+        const proposals = content.decisions.items.filter(item => item.type === 'proposal');
+        
+        return (
+          <div className="flex flex-col items-center justify-center h-full px-8 max-w-5xl mx-auto">
+            <motion.h2
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="text-3xl font-bold text-white mb-2"
+            >
+              {content.decisions.title}
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.1 }}
+              className="text-gray-400 text-sm mb-6 text-center max-w-2xl"
+            >
+              {content.decisions.description}
+            </motion.p>
+            
+            <div className="w-full grid grid-cols-2 gap-6">
+              {/* Decisions */}
               <motion.div
-                key={d.id}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.2 + i * 0.1 }}
-                className="flex items-center gap-4 bg-pr-gray/30 p-4 rounded-xl border border-gray-800"
+                transition={{ delay: 0.2 }}
               >
-                <span className="text-pr-yellow font-mono font-bold">{d.id}</span>
-                <span className="flex-1 text-white">{d.title}</span>
-                <span className="text-gray-500 text-sm">{d.owner}</span>
+                <div className="flex items-center gap-2 mb-3">
+                  <CheckCircle2 className="text-green-500" size={18} />
+                  <h3 className="text-sm font-bold text-white">{content.decisions.decisionsTitle}</h3>
+                  <span className="text-green-400 text-xs bg-green-500/20 px-2 py-0.5 rounded-full">{decisions.length}</span>
+                </div>
+                <div className="space-y-2">
+                  {decisions.map((item, i) => (
+                    <motion.div
+                      key={item.id}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.3 + i * 0.05 }}
+                      className="bg-green-500/5 border border-green-500/20 p-3 rounded-lg"
+                    >
+                      <p className="text-white text-sm">{item.title}</p>
+                      <p className="text-gray-500 text-xs mt-1">{item.owner}</p>
+                    </motion.div>
+                  ))}
+                </div>
               </motion.div>
-            ))}
+              
+              {/* Proposals */}
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.3 }}
+              >
+                <div className="flex items-center gap-2 mb-3">
+                  <FileQuestion className="text-purple-400" size={18} />
+                  <h3 className="text-sm font-bold text-white">{content.decisions.proposalsTitle}</h3>
+                  <span className="text-purple-400 text-xs bg-purple-500/20 px-2 py-0.5 rounded-full">{proposals.length}</span>
+                </div>
+                <div className="space-y-2">
+                  {proposals.map((item, i) => (
+                    <motion.div
+                      key={item.id}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.4 + i * 0.05 }}
+                      className="bg-purple-500/5 border border-purple-500/20 p-3 rounded-lg"
+                    >
+                      <p className="text-white text-sm">{item.title}</p>
+                      <p className="text-gray-500 text-xs mt-1">{item.owner}</p>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            </div>
           </div>
-        </div>
-      ),
+        );
+      },
     },
-    // Slide 6: Key Themes (Summary)
+    // Slide 6: A/B Testing
     {
-      id: 'themes',
+      id: 'ab-testing',
       render: () => (
         <div className="flex flex-col items-center justify-center h-full px-8 max-w-5xl mx-auto">
           <motion.h2
@@ -257,36 +317,159 @@ const PresentationMode: React.FC<PresentationModeProps> = ({
             animate={{ opacity: 1 }}
             className="text-3xl font-bold text-white mb-2"
           >
-            {content.themes.title}
+            {content.abTesting.title}
           </motion.h2>
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.1 }}
-            className="text-pr-yellow mb-8"
+            className="text-gray-400 mb-8"
           >
-            {content.themes.subtitle}
+            3,098 conversations • Maya: 2,175 • Humans: 923
           </motion.p>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 w-full">
-            {content.themes.items.map((theme, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.2 + i * 0.1 }}
-                className="bg-pr-gray/20 border border-gray-800 p-5 rounded-xl text-center hover:border-pr-yellow/40 transition-colors"
-              >
-                <h4 className="text-white font-semibold mb-2">{theme.title}</h4>
-                <p className="text-gray-500 text-xs line-clamp-2">{theme.action}</p>
-              </motion.div>
-            ))}
+          
+          {/* Big metrics */}
+          <div className="grid grid-cols-3 gap-6 w-full mb-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="bg-pr-yellow/10 border border-pr-yellow/30 p-5 rounded-xl text-center"
+            >
+              <p className="text-gray-400 text-sm mb-2">Response Time</p>
+              <p className="text-4xl font-bold text-pr-yellow">0.26</p>
+              <p className="text-gray-500 text-sm">min (vs 190 min human)</p>
+              <p className="text-pr-yellow text-xs mt-2 font-bold">99.9% faster</p>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="bg-pr-yellow/10 border border-pr-yellow/30 p-5 rounded-xl text-center"
+            >
+              <p className="text-gray-400 text-sm mb-2">Max Concurrent</p>
+              <p className="text-4xl font-bold text-pr-yellow">215</p>
+              <p className="text-gray-500 text-sm">conversations (vs 100)</p>
+              <p className="text-pr-yellow text-xs mt-2 font-bold">2x+ capacity</p>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+              className="bg-blue-500/10 border border-blue-500/30 p-5 rounded-xl text-center"
+            >
+              <p className="text-gray-400 text-sm mb-2">Engagement Rate</p>
+              <p className="text-4xl font-bold text-blue-400">80%</p>
+              <p className="text-gray-500 text-sm">human (vs 73.7% AI)</p>
+              <p className="text-blue-400 text-xs mt-2 font-bold">Human edge</p>
+            </motion.div>
           </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="bg-pr-yellow/10 border-l-4 border-pr-yellow p-5 rounded-r-xl w-full text-center"
+          >
+            <p className="text-white font-medium">{content.abTesting.whatsNext.text}</p>
+          </motion.div>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6 }}
+            className="text-gray-600 text-xs mt-4"
+          >
+            Human team = 12 people • Maya = 1 AI agent (pilot)
+          </motion.p>
         </div>
       ),
     },
-    // Slide 7: Initiatives
+    // Slide 7: Fleet Survey
     {
-      id: 'initiatives',
+      id: 'fleet-survey',
+      render: () => (
+        <div className="flex flex-col items-center justify-center h-full px-8 max-w-5xl mx-auto">
+          <motion.h2
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-3xl font-bold text-white mb-2"
+          >
+            {content.fleetSurvey.title}
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.1 }}
+            className="text-gray-400 mb-8"
+          >
+            {content.fleetSurvey.sampleSize} • 33 open comments
+          </motion.p>
+
+          {/* Top KPIs */}
+          <div className="grid grid-cols-3 gap-6 w-full mb-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="bg-pr-yellow/10 border border-pr-yellow/30 p-5 rounded-xl text-center"
+            >
+              <p className="text-gray-400 text-sm mb-2">Top Priority</p>
+              <p className="text-3xl font-bold text-white">Payments</p>
+              <p className="text-pr-yellow font-bold">4.94 / 5</p>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="bg-pr-yellow/10 border border-pr-yellow/30 p-5 rounded-xl text-center"
+            >
+              <p className="text-gray-400 text-sm mb-2">Preferred Platform</p>
+              <p className="text-3xl font-bold text-white">Mobile App</p>
+              <p className="text-pr-yellow font-bold">43.7%</p>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+              className="bg-blue-500/10 border border-blue-500/30 p-5 rounded-xl text-center"
+            >
+              <p className="text-gray-400 text-sm mb-2">Opportunity</p>
+              <p className="text-xl font-bold text-white">Optimize App</p>
+              <p className="text-blue-400 text-sm">for payments</p>
+            </motion.div>
+          </div>
+
+          {/* Feature importance */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="w-full bg-pr-gray/20 border border-gray-800 p-5 rounded-xl"
+          >
+            <h4 className="text-white font-bold mb-4">Feature Importance (avg /5)</h4>
+            <div className="grid grid-cols-3 gap-4">
+              {[
+                { label: 'Payments', score: 4.94 },
+                { label: 'Preferences', score: 4.79 },
+                { label: 'Availability', score: 4.62 },
+                { label: 'Routes', score: 4.60 },
+                { label: 'Registration', score: 4.54 },
+                { label: 'Referrals', score: 4.06 },
+              ].map((item, i) => (
+                <div key={i} className="flex justify-between items-center">
+                  <span className="text-gray-400 text-sm">{item.label}</span>
+                  <span className={`font-bold ${i < 2 ? 'text-pr-yellow' : 'text-gray-400'}`}>{item.score}</span>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      ),
+    },
+    // Slide 8: Next Steps
+    {
+      id: 'next-steps',
       render: () => (
         <div className="flex flex-col items-center justify-center h-full px-8 max-w-5xl mx-auto">
           <motion.h2
@@ -294,27 +477,48 @@ const PresentationMode: React.FC<PresentationModeProps> = ({
             animate={{ opacity: 1 }}
             className="text-3xl font-bold text-white mb-8"
           >
-            {content.initiatives.title}
+            {content.nextSteps.title}
           </motion.h2>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 w-full">
-            {content.initiatives.items.slice(0, 7).map((init, i) => (
-              <motion.div
-                key={init.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.15 + i * 0.08 }}
-                className="bg-pr-gray/20 border border-gray-800 p-4 rounded-xl"
-              >
-                <span className="text-pr-yellow text-xs font-mono">INIT-{init.id}</span>
-                <h4 className="text-white font-semibold text-sm mt-2 mb-1">{init.title}</h4>
-                <p className="text-gray-500 text-xs">{init.owner}</p>
-              </motion.div>
-            ))}
+          
+          <div className="grid grid-cols-3 gap-4 w-full">
+            {content.nextSteps.pillars.map((pillar, i) => {
+              const icons = { A: Bot, B: Target, C: RefreshCw };
+              const colors = { 
+                A: 'text-pr-yellow border-pr-yellow/30 bg-pr-yellow/10', 
+                B: 'text-blue-400 border-blue-500/30 bg-blue-500/10', 
+                C: 'text-green-400 border-green-500/30 bg-green-500/10' 
+              };
+              const Icon = icons[pillar.id];
+              
+              return (
+                <motion.div
+                  key={pillar.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 + i * 0.1 }}
+                  className={`p-4 rounded-xl border ${colors[pillar.id]}`}
+                >
+                  <div className="flex items-center gap-2 mb-3">
+                    <Icon size={20} />
+                    <span className="font-bold text-white text-sm">{pillar.title}</span>
+                  </div>
+                  <ul className="space-y-1">
+                    {pillar.items.slice(0, 3).map((item, j) => (
+                      <li key={j} className="text-gray-400 text-xs flex items-start gap-1">
+                        <ArrowRight size={10} className="mt-0.5 flex-shrink-0" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="text-xs text-gray-500 mt-3">{pillar.owner}</p>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       ),
     },
-    // Slide 8: End
+    // Slide 9: End
     {
       id: 'end',
       render: () => (
@@ -325,26 +529,41 @@ const PresentationMode: React.FC<PresentationModeProps> = ({
             className="mb-8"
           >
             <img 
-              src="https://media.licdn.com/dms/image/v2/C4E0BAQG0Qe2-6i5mOQ/company-logo_200_200/company-logo_200_200/0/1630646797207?e=2147483647&v=beta&t=7y2k2Q_498-8f8X_949494949" 
+              src="./Logo.png" 
               alt="PartRunner" 
-              className="w-24 h-24 rounded-2xl mx-auto"
+              className="h-16 mx-auto"
             />
           </motion.div>
-          <motion.h2
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-4xl font-bold text-white mb-4"
+            className="text-xl text-gray-400 italic mb-8"
           >
-            {content.openItems.footer}
-          </motion.h2>
-          <motion.p
+            "{content.nextSteps.closing}"
+          </motion.p>
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
-            className="text-gray-500"
+            className="flex items-center gap-4"
           >
-            Press ESC to exit presentation mode
+            {content.nextSteps.credits.items.map((credit, i) => (
+              <div key={i} className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-full bg-pr-yellow/20 flex items-center justify-center text-pr-yellow font-bold text-sm">
+                  {credit.name.charAt(0)}
+                </div>
+                <span className="text-gray-400 text-sm">{credit.name}</span>
+              </div>
+            ))}
+          </motion.div>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6 }}
+            className="text-gray-600 text-sm mt-8"
+          >
+            Press ESC to exit
           </motion.p>
         </div>
       ),
@@ -361,7 +580,6 @@ const PresentationMode: React.FC<PresentationModeProps> = ({
     setCurrentSlide((prev) => Math.max(prev - 1, 0));
   }, []);
 
-  // Keyboard navigation
   useEffect(() => {
     if (!isOpen) return;
 
@@ -397,11 +615,8 @@ const PresentationMode: React.FC<PresentationModeProps> = ({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen, nextSlide, prevSlide, onClose, totalSlides]);
 
-  // Reset slide when opened
   useEffect(() => {
-    if (isOpen) {
-      setCurrentSlide(0);
-    }
+    if (isOpen) setCurrentSlide(0);
   }, [isOpen]);
 
   return (
@@ -418,21 +633,15 @@ const PresentationMode: React.FC<PresentationModeProps> = ({
             <button
               onClick={() => setCurrentSlide(0)}
               className="p-2 text-gray-500 hover:text-white transition-colors"
-              aria-label="Go to first slide"
             >
               <Home size={20} />
             </button>
-            
-            <div className="flex items-center gap-2">
-              <span className="text-sm text-gray-500 font-mono">
-                {currentSlide + 1} / {totalSlides}
-              </span>
-            </div>
-
+            <span className="text-sm text-gray-500 font-mono">
+              {currentSlide + 1} / {totalSlides}
+            </span>
             <button
               onClick={onClose}
               className="p-2 text-gray-500 hover:text-white transition-colors"
-              aria-label="Exit presentation mode"
             >
               <X size={20} />
             </button>
@@ -442,7 +651,6 @@ const PresentationMode: React.FC<PresentationModeProps> = ({
           <div className="absolute top-0 left-0 right-0 h-1 bg-gray-900">
             <motion.div
               className="h-full bg-pr-yellow"
-              initial={{ width: 0 }}
               animate={{ width: `${((currentSlide + 1) / totalSlides) * 100}%` }}
             />
           </div>
@@ -463,33 +671,26 @@ const PresentationMode: React.FC<PresentationModeProps> = ({
             </AnimatePresence>
           </div>
 
-          {/* Navigation Arrows */}
+          {/* Navigation */}
           <div className="absolute bottom-8 left-0 right-0 flex items-center justify-center gap-4">
             <button
               onClick={prevSlide}
               disabled={currentSlide === 0}
               className={`p-3 rounded-full transition-all ${
-                currentSlide === 0
-                  ? 'text-gray-700 cursor-not-allowed'
-                  : 'text-gray-400 hover:text-white hover:bg-white/10'
+                currentSlide === 0 ? 'text-gray-700' : 'text-gray-400 hover:text-white hover:bg-white/10'
               }`}
-              aria-label="Previous slide"
             >
               <ChevronLeft size={32} />
             </button>
 
-            {/* Slide Dots */}
             <div className="flex items-center gap-2">
               {slides.map((_, i) => (
                 <button
                   key={i}
                   onClick={() => setCurrentSlide(i)}
                   className={`w-2 h-2 rounded-full transition-all ${
-                    i === currentSlide
-                      ? 'bg-pr-yellow w-6'
-                      : 'bg-gray-700 hover:bg-gray-500'
+                    i === currentSlide ? 'bg-pr-yellow w-6' : 'bg-gray-700 hover:bg-gray-500'
                   }`}
-                  aria-label={`Go to slide ${i + 1}`}
                 />
               ))}
             </div>
@@ -498,21 +699,11 @@ const PresentationMode: React.FC<PresentationModeProps> = ({
               onClick={nextSlide}
               disabled={currentSlide === totalSlides - 1}
               className={`p-3 rounded-full transition-all ${
-                currentSlide === totalSlides - 1
-                  ? 'text-gray-700 cursor-not-allowed'
-                  : 'text-gray-400 hover:text-white hover:bg-white/10'
+                currentSlide === totalSlides - 1 ? 'text-gray-700' : 'text-gray-400 hover:text-white hover:bg-white/10'
               }`}
-              aria-label="Next slide"
             >
               <ChevronRight size={32} />
             </button>
-          </div>
-
-          {/* Keyboard Hints */}
-          <div className="absolute bottom-4 right-4 text-xs text-gray-700">
-            <span className="px-2 py-1 bg-gray-900 rounded mr-1">←→</span>
-            <span className="px-2 py-1 bg-gray-900 rounded mr-1">Space</span>
-            <span className="px-2 py-1 bg-gray-900 rounded">Esc</span>
           </div>
         </motion.div>
       )}
@@ -521,4 +712,3 @@ const PresentationMode: React.FC<PresentationModeProps> = ({
 };
 
 export default PresentationMode;
-

@@ -57,7 +57,7 @@ const MobileNav: React.FC<MobileNavProps> = ({
               <div className="p-6 pt-20 border-b border-pr-gray">
                 <div className="flex items-center gap-3 mb-4">
                   <img 
-                    src="https://media.licdn.com/dms/image/v2/C4E0BAQG0Qe2-6i5mOQ/company-logo_200_200/company-logo_200_200/0/1630646797207?e=2147483647&v=beta&t=7y2k2Q_498-8f8X_949494949" 
+                    src="./Isotipo.png" 
                     alt="PartRunner Logo" 
                     className="w-10 h-10 rounded-lg object-cover"
                   />
