@@ -217,32 +217,71 @@ const PresentationMode: React.FC<PresentationModeProps> = ({
         </div>
       ),
     },
-    // Slide 5: Decisions
+    // Slide 5: Decisions & Next Steps (Combined)
     {
-      id: 'decisions',
+      id: 'decisions-next-steps',
       render: () => (
         <div className="flex flex-col items-center justify-center h-full px-8 max-w-5xl mx-auto">
           <motion.h2
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="text-3xl font-bold text-white mb-8"
+            className="text-3xl font-bold text-white mb-6"
           >
-            {content.summary.decisions.title}
+            {content.openItems.title}
           </motion.h2>
-          <div className="w-full space-y-3">
-            {content.summary.decisions.items.map((d, i) => (
-              <motion.div
-                key={d.id}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.2 + i * 0.1 }}
-                className="flex items-center gap-4 bg-pr-gray/30 p-4 rounded-xl border border-gray-800"
-              >
-                <span className="text-pr-yellow font-mono font-bold">{d.id}</span>
-                <span className="flex-1 text-white">{d.title}</span>
-                <span className="text-gray-500 text-sm">{d.owner}</span>
-              </motion.div>
-            ))}
+          
+          {/* Decisions */}
+          <div className="w-full mb-6">
+            <motion.h3
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.1 }}
+              className="text-sm font-bold text-pr-yellow uppercase tracking-wider mb-3 flex items-center gap-2"
+            >
+              <span className="w-2 h-2 bg-pr-yellow rounded-full"></span>
+              {content.openItems.decisionsTitle}
+            </motion.h3>
+            <div className="grid grid-cols-2 gap-2">
+              {content.openItems.decisions.map((d, i) => (
+                <motion.div
+                  key={d.id}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.15 + i * 0.08 }}
+                  className="flex items-center gap-3 bg-pr-gray/30 p-3 rounded-lg border border-gray-800"
+                >
+                  <span className="text-pr-yellow font-mono text-xs font-bold">{d.id}</span>
+                  <span className="flex-1 text-white text-sm">{d.title}</span>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          {/* Next Steps */}
+          <div className="w-full">
+            <motion.h3
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4 }}
+              className="text-sm font-bold text-blue-400 uppercase tracking-wider mb-3 flex items-center gap-2"
+            >
+              <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
+              {content.openItems.nextStepsTitle}
+            </motion.h3>
+            <div className="grid grid-cols-1 gap-2">
+              {content.openItems.items.slice(0, 4).map((item, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.5 + i * 0.08 }}
+                  className="flex items-center gap-3 bg-blue-900/10 border border-blue-900/30 p-3 rounded-lg"
+                >
+                  <span className="w-5 h-5 rounded-full border border-blue-500/50 flex items-center justify-center text-xs text-blue-400">{i+1}</span>
+                  <span className="text-gray-300 text-sm">{item}</span>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       ),
