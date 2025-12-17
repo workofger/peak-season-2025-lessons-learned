@@ -50,7 +50,7 @@ export const CONTENT: { en: DashboardContent; es: DashboardContent } = {
             },
             { 
               type: 'worked', 
-              text: 'Weekly payments = real USP',
+              text: 'Weekly payments = competitive advantage',
               example: 'Increases trust, reduces cash-flow friction, strengthens reliability perception.',
               productImplication: 'Productize this differentiator: visible, verifiable, and traceable.',
               nextBuild: ['Payment breakdown + deposit status tracking + receipt', 'Surface "weekly payments" as value prop']
@@ -390,7 +390,7 @@ export const CONTENT: { en: DashboardContent; es: DashboardContent } = {
             },
             { 
               type: 'worked', 
-              text: 'Pagos semanales = USP real',
+              text: 'Pagos semanales = ventaja competitiva',
               example: 'Aumenta confianza, reduce fricción de cashflow, fortalece percepción de seriedad.',
               productImplication: 'Productizar este diferenciador: visible, verificable y trazable.',
               nextBuild: ['Desglose de pago + status de depósito + comprobante', 'Mostrar "pagos semanales" como propuesta de valor']
