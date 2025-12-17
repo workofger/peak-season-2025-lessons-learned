@@ -150,7 +150,7 @@ export const CONTENT: { en: DashboardContent; es: DashboardContent } = {
       },
       whatsNext: {
         title: 'What It Means',
-        text: 'Maya (AI) handles 2x the volume with near-instant responses. Human team still edges out on conversion rate—hybrid model recommended.'
+        text: 'Maya (AI) handles 21x the volume per agent with near-instant responses. Human team still edges out on engagement rate—hybrid model recommended.'
       },
       results: [
         { metric: 'Response Time', ai: '0.26 min', human: '190 min', winner: 'ai' },
@@ -276,7 +276,7 @@ export const CONTENT: { en: DashboardContent; es: DashboardContent } = {
         {
           id: 'A',
           title: 'AI-First Approach',
-          items: [
+      items: [
             'AI-guided onboarding flow',
             'Automated document collection',
             'End-to-end negotiation support',
@@ -287,7 +287,7 @@ export const CONTENT: { en: DashboardContent; es: DashboardContent } = {
         {
           id: 'B',
           title: 'Matching Improvements',
-          items: [
+      items: [
             'Mandatory rejection reasons',
             'Tag discarded vs active candidates',
             '"Mark" action for in-progress contacts',
@@ -308,7 +308,7 @@ export const CONTENT: { en: DashboardContent; es: DashboardContent } = {
       ],
       decisions: {
         title: 'Decisions Taken',
-        items: [
+      items: [
           { id: 'DEC-1', title: 'AI-first approach for onboarding', description: 'Use Maya to guide new fleets through documentation and activation', owner: 'Product', type: 'decision' },
           { id: 'DEC-2', title: 'Mandatory LiveOps rejection reasons', description: 'Capture why drivers are discarded to improve Matching algorithm', owner: 'Product', type: 'decision' },
           { id: 'DEC-3', title: 'Matching "marking" action', description: 'Allow LiveOps to mark candidates as in-progress to avoid duplicates', owner: 'Product', type: 'decision' },
@@ -316,7 +316,7 @@ export const CONTENT: { en: DashboardContent; es: DashboardContent } = {
       },
       credits: {
         title: 'Credits',
-        items: [
+      items: [
           { name: 'Julio', role: 'Documentation & Insights' },
           { name: 'Nicole', role: 'Survey Design' },
           { name: 'Gerardo', role: 'Product Lead' }
@@ -474,7 +474,7 @@ export const CONTENT: { en: DashboardContent; es: DashboardContent } = {
       },
       whatsNext: {
         title: 'Qué Significa',
-        text: 'Maya (IA) maneja 2x el volumen con respuestas casi instantáneas. El equipo humano gana en conversión—se recomienda modelo híbrido.'
+        text: 'Maya (IA) maneja 21x el volumen por agente con respuestas casi instantáneas. El equipo humano gana en engagement—se recomienda modelo híbrido.'
       },
       results: [
         { metric: 'Tiempo Respuesta', ai: '0.26 min', human: '190 min', winner: 'ai' },
@@ -600,7 +600,7 @@ export const CONTENT: { en: DashboardContent; es: DashboardContent } = {
         {
           id: 'A',
           title: 'Enfoque IA-First',
-          items: [
+      items: [
             'Flujo de onboarding guiado por IA',
             'Recolección automática de documentos',
             'Soporte de negociación de inicio a fin',
@@ -611,7 +611,7 @@ export const CONTENT: { en: DashboardContent; es: DashboardContent } = {
         {
           id: 'B',
           title: 'Mejoras de Matching',
-          items: [
+      items: [
             'Razones de rechazo obligatorias',
             'Etiquetar candidatos descartados vs activos',
             'Acción "Marcar" para contactos en progreso',
@@ -632,7 +632,7 @@ export const CONTENT: { en: DashboardContent; es: DashboardContent } = {
       ],
       decisions: {
         title: 'Decisiones Tomadas',
-        items: [
+      items: [
           { id: 'DEC-1', title: 'Onboarding AI-First', description: 'Usar Maya para guiar a nuevas flotas en documentación y activación', owner: 'Producto', type: 'decision' },
           { id: 'DEC-2', title: 'Razones de rechazo obligatorias (LiveOps)', description: 'Capturar por qué se descartan conductores para mejorar Matching', owner: 'Producto', type: 'decision' },
           { id: 'DEC-3', title: 'Acción "Marcar" en Matching', description: 'Permitir a LiveOps marcar candidatos en progreso para evitar duplicados', owner: 'Producto', type: 'decision' },
@@ -640,7 +640,7 @@ export const CONTENT: { en: DashboardContent; es: DashboardContent } = {
       },
       credits: {
         title: 'Créditos',
-        items: [
+      items: [
           { name: 'Julio', role: 'Documentación e Insights' },
           { name: 'Nicole', role: 'Diseño de Encuesta' },
           { name: 'Gerardo', role: 'Líder de Producto' }
