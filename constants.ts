@@ -6,9 +6,6 @@ const RACI_DATA_EN: RaciRow[] = [
   { type: 'Decision', id: 'DEC-2', item: 'Urgent replacement logging (<30s)', r: 'LiveOps', a: 'Marcos Subia', c: 'Product, Eng', i: 'Leadership' },
   { type: 'Decision', id: 'DEC-3', item: 'Supported Matching marking action', r: 'Prod + Eng', a: 'Product', c: 'LiveOps, Supply', i: 'Leadership' },
   { type: 'Decision', id: 'DEC-4', item: 'AI-first onboarding (scale Q1)', r: 'Prod + Eng', a: 'Tarun', c: 'Supply, LiveOps', i: 'Company' },
-  { type: 'Proposal', id: 'PROP-1', item: 'Peak cadence + escalation', r: 'Ops Lead', a: 'Leadership', c: 'Product, Supply', i: 'Company' },
-  { type: 'Proposal', id: 'PROP-2', item: 'Standard offer template', r: 'Supply + Prod', a: 'Supply', c: 'LiveOps', i: 'Leadership' },
-  { type: 'Proposal', id: 'PROP-3', item: 'Daily Peak digest', r: 'Analytics', a: 'TBD', c: 'LiveOps, Prod', i: 'Company' },
 ];
 
 const RACI_DATA_ES: RaciRow[] = [
@@ -16,9 +13,6 @@ const RACI_DATA_ES: RaciRow[] = [
   { type: 'Decision', id: 'DEC-2', item: 'Registro de reemplazos urgentes (<30s)', r: 'LiveOps', a: 'Marcos Subia', c: 'Producto, Ing', i: 'Liderazgo' },
   { type: 'Decision', id: 'DEC-3', item: 'Soporte para acción "Marcar" (Matching)', r: 'Prod + Ing', a: 'Producto', c: 'LiveOps, Supply', i: 'Liderazgo' },
   { type: 'Decision', id: 'DEC-4', item: 'Onboarding con IA (Escala Q1)', r: 'Prod + Ing', a: 'Tarun', c: 'Supply, LiveOps', i: 'Compañía' },
-  { type: 'Proposal', id: 'PROP-1', item: 'Cadencia Peak + Protocolo Escalación', r: 'Líder Ops', a: 'Liderazgo', c: 'Producto, Supply', i: 'Compañía' },
-  { type: 'Proposal', id: 'PROP-2', item: 'Plantilla de Oferta Estándar', r: 'Supply + Prod', a: 'Supply', c: 'LiveOps', i: 'Liderazgo' },
-  { type: 'Proposal', id: 'PROP-3', item: 'Reporte Diario Peak (Digest)', r: 'Analytics', a: 'TBD', c: 'LiveOps, Prod', i: 'Compañía' },
 ];
 
 export const CONTENT: { en: DashboardContent; es: DashboardContent } = {
@@ -37,7 +31,7 @@ export const CONTENT: { en: DashboardContent; es: DashboardContent } = {
         { id: 'themes', label: '5. Key Themes' },
         { id: 'initiatives', label: '6. Initiatives' },
         { id: 'raci', label: '7. Ownership (RACI)' },
-        { id: 'open-items', label: '8. Open Items' },
+        { id: 'open-items', label: '8. Decisions & Next Steps' },
       ],
     },
     hero: {
@@ -221,21 +215,21 @@ export const CONTENT: { en: DashboardContent; es: DashboardContent } = {
           iconKey: 'check',
           diagnosis: 'Acceptance is predictable (Pay, CEDIS Distance, Time), but offers are improvised.',
           action: 'Standard offer template enforced in negotiation.',
-          relatedIds: ['PROP-2']
+          relatedIds: []
         },
         { 
           title: 'Supported Fast Path', 
           iconKey: 'zap',
           diagnosis: 'WhatsApp is the operational backbone for speed. Fighting it causes "Shadow Ops".',
           action: 'Build fast-path workflows that mirror reality + visibility.',
-          relatedIds: ['DEC-2', 'PROP-3']
+          relatedIds: ['DEC-2']
         },
         { 
           title: 'Operating Cadence', 
           iconKey: 'refresh',
           diagnosis: 'When touchpoints drop (remote), visibility collapses and reaction time suffers.',
           action: 'Peak cadence + On-call coverage + Incident log.',
-          relatedIds: ['PROP-1']
+          relatedIds: []
         },
         { 
           title: 'AI Scalability', 
@@ -249,7 +243,7 @@ export const CONTENT: { en: DashboardContent; es: DashboardContent } = {
     raci: {
       title: 'Ownership Model',
       subtitle: 'Governance & Execution',
-      description: 'The Initiatives listed above require clear owners to avoid the "everyone owns everything" trap. This RACI matrix defines who is Accountable (A) for the success of each Decision and Proposal that drives the Roadmap.',
+      description: 'The Initiatives listed above require clear owners to avoid the "everyone owns everything" trap. This RACI matrix defines who is Accountable (A) for the success of each Decision that drives the Roadmap.',
       headers: { type: 'Type', id: 'ID', item: 'Item', r: 'Responsible', a: 'Accountable', c: 'Consulted', i: 'Informed' },
       legend: { r: 'Responsible (Does work)', a: 'Accountable (Owns outcome)', c: 'Consulted (Input)', i: 'Informed (Updated)' },
       items: RACI_DATA_EN
@@ -262,15 +256,23 @@ export const CONTENT: { en: DashboardContent; es: DashboardContent } = {
         { id: 'A', title: 'Auto Affiliations using AI', description: 'AI-guided onboarding flow that collects and validates docs end-to-end.', output: 'WhatsApp/Flow + Admin View', owner: 'Tarun', evidence: 'DEC-4' },
         { id: 'B', title: 'LiveOps Quick Wins', description: 'Minimal logging + visibility improvements that match LiveOps reality.', output: 'Swap log, Rejection reasons', owner: 'Marcos Subia', evidence: 'DEC-1, DEC-2' },
         { id: 'C', title: 'Matching Integrity', description: 'Product changes that make Matching signal trustworthy.', output: 'Mark action + Outcomes', owner: 'Product', evidence: 'DEC-3' },
-        { id: 'D', title: 'Peak Cadence & On-Call', description: 'Standard communication rhythm + escalation path.', output: 'Cadence, Log, Schedule', owner: 'Leadership', evidence: 'PROP-1' },
-        { id: 'E', title: 'Standard Offer Template', description: 'Mandatory offer format capturing acceptance drivers.', output: 'Template + Enforcement', owner: 'Supply', evidence: 'PROP-2' },
-        { id: 'F', title: 'Daily Peak Digest', description: 'Leadership-facing summary of what’s breaking.', output: 'Daily digest email/slack', owner: 'Product Ops', evidence: 'PROP-3' },
+        { id: 'D', title: 'Peak Cadence & On-Call', description: 'Standard communication rhythm + escalation path.', output: 'Cadence, Log, Schedule', owner: 'Leadership', evidence: 'Themes' },
+        { id: 'E', title: 'Standard Offer Template', description: 'Mandatory offer format capturing acceptance drivers.', output: 'Template + Enforcement', owner: 'Supply', evidence: 'Themes' },
+        { id: 'F', title: 'Daily Peak Digest', description: 'Leadership-facing summary of what’s breaking.', output: 'Daily digest email/slack', owner: 'Product Ops', evidence: 'Themes' },
         { id: 'G', title: 'Fleet App (MVP)', description: 'Self-serve fleet experience for clarity + basic management.', output: 'MVP App', owner: 'Product', evidence: 'New' },
       ]
     },
     openItems: {
-      title: 'Open Items',
-      subtitle: 'Before Deck Externalization',
+      title: 'Decisions & Next Steps',
+      subtitle: 'Action Plan',
+      decisionsTitle: 'Decisions Taken',
+      nextStepsTitle: 'Immediate Next Steps',
+      decisions: [
+        { id: 'DEC-1', title: 'Mandatory LiveOps rejection reasons', owner: 'Marcos Subia' },
+        { id: 'DEC-2', title: 'Urgent replacement logging (<30s) required', owner: 'Marcos Subia' },
+        { id: 'DEC-3', title: 'Supported Matching "marking" action', owner: 'Product / LiveOps' },
+        { id: 'DEC-4', title: 'AI-first approach for onboarding', owner: 'Tarun' },
+      ],
       items: [
         'Formalize EP-04 as an evidence gap (explicit "not traceable").',
         'Install incident logging immediately for Q1 2026.',
@@ -296,7 +298,7 @@ export const CONTENT: { en: DashboardContent; es: DashboardContent } = {
         { id: 'themes', label: '5. Diagnóstico y Estrategia' },
         { id: 'initiatives', label: '6. Iniciativas' },
         { id: 'raci', label: '7. Responsables (RACI)' },
-        { id: 'open-items', label: '8. Siguientes Pasos' },
+        { id: 'open-items', label: '8. Decisiones y Siguientes Pasos' },
       ],
     },
     hero: {
@@ -480,21 +482,21 @@ export const CONTENT: { en: DashboardContent; es: DashboardContent } = {
           iconKey: 'check',
           diagnosis: 'La aceptación es predecible, pero las ofertas se improvisan en cada llamada.',
           action: 'Plantilla de oferta estándar forzosa durante la negociación.',
-          relatedIds: ['PROP-2']
+          relatedIds: []
         },
         { 
           title: 'Canal Rápido ("Fast Path") Soportado', 
           iconKey: 'zap',
           diagnosis: 'WhatsApp es la columna vertebral de la velocidad. Combatirlo genera operaciones invisibles ("Shadow Ops").',
           action: 'Construir flujos rápidos que reflejen la realidad + visibilidad.',
-          relatedIds: ['DEC-2', 'PROP-3']
+          relatedIds: ['DEC-2']
         },
         { 
           title: 'Ritmo Operativo (Cadencia)', 
           iconKey: 'refresh',
           diagnosis: 'Al reducir puntos de contacto (remoto), la visibilidad colapsa y la reacción sufre.',
           action: 'Cadencia Peak + Guardia + Bitácora de incidentes.',
-          relatedIds: ['PROP-1']
+          relatedIds: []
         },
         { 
           title: 'Escalabilidad con IA', 
@@ -508,7 +510,7 @@ export const CONTENT: { en: DashboardContent; es: DashboardContent } = {
     raci: {
       title: 'Modelo de Responsabilidad',
       subtitle: 'Gobernanza y Ejecución',
-      description: 'Las Iniciativas listadas requieren dueños claros para evitar la trampa de "todos son dueños de todo". Esta matriz RACI define quién es el Responsable Final (Accountable) del éxito de cada Decisión y Propuesta.',
+      description: 'Las Iniciativas listadas requieren dueños claros para evitar la trampa de "todos son dueños de todo". Esta matriz RACI define quién es el Responsable Final (Accountable) del éxito de cada Decisión.',
       headers: { type: 'Tipo', id: 'ID', item: 'Ítem', r: 'Ejecutor (R)', a: 'Aprobador (A)', c: 'Consultado', i: 'Informado' },
       legend: { r: 'Responsable (Ejecuta el trabajo)', a: 'Aprobador (Dueño del resultado)', c: 'Consultado (Input)', i: 'Informado (Actualizado)' },
       items: RACI_DATA_ES
@@ -521,15 +523,23 @@ export const CONTENT: { en: DashboardContent; es: DashboardContent } = {
         { id: 'A', title: 'Auto Afiliaciones usando IA', description: 'Flujo de onboarding guiado por IA que recolecta y valida documentos E2E.', output: 'WhatsApp/Flow + Vista Admin', owner: 'Tarun', evidence: 'DEC-4' },
         { id: 'B', title: 'LiveOps Quick Wins', description: 'Mejoras mínimas de registro + visibilidad alineadas a la realidad de LiveOps.', output: 'Log de cambios, Razones de rechazo', owner: 'Marcos Subia', evidence: 'DEC-1, DEC-2' },
         { id: 'C', title: 'Integridad de Matching', description: 'Cambios de producto para hacer confiable la señal de Matching.', output: 'Acción de Marcar + Resultados', owner: 'Producto', evidence: 'DEC-3' },
-        { id: 'D', title: 'Cadencia Peak y Guardia', description: 'Ritmo de comunicación estándar + protocolo de escalación.', output: 'Cadencia, Log, Horario', owner: 'Liderazgo', evidence: 'PROP-1' },
-        { id: 'E', title: 'Plantilla de Oferta Estándar', description: 'Formato obligatorio capturando variables clave de aceptación.', output: 'Plantilla + Cumplimiento', owner: 'Supply', evidence: 'PROP-2' },
-        { id: 'F', title: 'Resumen Diario Peak', description: 'Resumen ejecutivo diario sobre puntos de quiebre y cambios.', output: 'Email/Slack diario', owner: 'Ops Producto', evidence: 'PROP-3' },
+        { id: 'D', title: 'Cadencia Peak y Guardia', description: 'Ritmo de comunicación estándar + protocolo de escalación.', output: 'Cadencia, Log, Horario', owner: 'Liderazgo', evidence: 'Temas' },
+        { id: 'E', title: 'Plantilla de Oferta Estándar', description: 'Formato obligatorio capturando variables clave de aceptación.', output: 'Plantilla + Cumplimiento', owner: 'Supply', evidence: 'Temas' },
+        { id: 'F', title: 'Resumen Diario Peak', description: 'Resumen ejecutivo diario sobre puntos de quiebre y cambios.', output: 'Email/Slack diario', owner: 'Ops Producto', evidence: 'Temas' },
         { id: 'G', title: 'App Flotas (MVP)', description: 'Experiencia autoservicio para claridad + gestión básica.', output: 'MVP App', owner: 'Producto', evidence: 'Nueva' },
       ]
     },
     openItems: {
-      title: 'Siguientes Pasos',
-      subtitle: 'Antes de Externalizar Deck',
+      title: 'Decisiones y Siguientes Pasos',
+      subtitle: 'Plan de Acción',
+      decisionsTitle: 'Decisiones Tomadas',
+      nextStepsTitle: 'Siguientes Pasos Inmediatos',
+      decisions: [
+        { id: 'DEC-1', title: 'Razones de rechazo obligatorias (LiveOps)', owner: 'Marcos Subia' },
+        { id: 'DEC-2', title: 'Registro de reemplazos urgentes (<30s)', owner: 'Marcos Subia' },
+        { id: 'DEC-3', title: 'Soporte para acción "Marcar" en Matching', owner: 'Producto / LiveOps' },
+        { id: 'DEC-4', title: 'Onboarding AI-First (Escala Q1)', owner: 'Tarun' },
+      ],
       items: [
         'Formalizar EP-04 como brecha de evidencia (explícitamente "no rastreable").',
         'Implementar bitácora de incidentes inmediatamente para Q1 2026.',

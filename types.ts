@@ -175,6 +175,9 @@ export interface DashboardContent {
   openItems: {
     title: string;
     subtitle: string;
+    decisionsTitle: string;
+    nextStepsTitle: string;
+    decisions: { id: string; title: string; owner: string }[];
     items: string[];
     footer: string;
   };

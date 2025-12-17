@@ -356,7 +356,7 @@ const App: React.FC = () => {
           <RaciSection content={content.raci} />
         </motion.div>
 
-        {/* 8. Open Items */}
+        {/* 8. Decisions & Next Steps */}
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -364,23 +364,59 @@ const App: React.FC = () => {
           variants={sectionVariants}
         >
           <Section id="open-items" title={content.openItems.title} subtitle={content.openItems.subtitle}>
-            <div className="bg-pr-gray/20 p-8 rounded-xl border border-gray-800">
-              <ul className="space-y-4">
-                {content.openItems.items.map((item, i) => (
-                  <motion.li 
-                    key={i} 
-                    className="flex items-start gap-4"
-                    initial={{ opacity: 0, x: -10 }}
-                    whileInView={{ opacity: 1, x: 0 }}
+            {/* Decisions Section */}
+            <div className="mb-12">
+              <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-3">
+                <span className="w-2 h-2 bg-pr-yellow rounded-full"></span>
+                {content.openItems.decisionsTitle}
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {content.openItems.decisions.map((decision, i) => (
+                  <motion.div
+                    key={decision.id}
+                    className="bg-pr-gray/30 p-5 rounded-xl border border-gray-800 hover:border-pr-yellow/40 transition-colors"
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ delay: i * 0.05 }}
+                    transition={{ delay: i * 0.08 }}
                   >
-                    <div className="w-6 h-6 rounded-full border border-gray-600 flex items-center justify-center text-xs text-gray-500 mt-0.5">{i+1}</div>
-                    <span className="text-gray-300">{item}</span>
-                  </motion.li>
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="flex-1">
+                        <span className="text-pr-yellow font-mono text-sm font-bold">{decision.id}</span>
+                        <h4 className="text-white font-medium mt-1">{decision.title}</h4>
+                      </div>
+                      <span className="text-gray-500 text-sm whitespace-nowrap">{decision.owner}</span>
+                    </div>
+                  </motion.div>
                 ))}
-              </ul>
+              </div>
             </div>
+
+            {/* Next Steps Section */}
+            <div>
+              <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-3">
+                <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
+                {content.openItems.nextStepsTitle}
+              </h3>
+              <div className="bg-pr-gray/20 p-8 rounded-xl border border-gray-800">
+                <ul className="space-y-4">
+                  {content.openItems.items.map((item, i) => (
+                    <motion.li 
+                      key={i} 
+                      className="flex items-start gap-4"
+                      initial={{ opacity: 0, x: -10 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.05 }}
+                    >
+                      <div className="w-6 h-6 rounded-full border border-gray-600 flex items-center justify-center text-xs text-gray-500 mt-0.5">{i+1}</div>
+                      <span className="text-gray-300">{item}</span>
+                    </motion.li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
             <div className="mt-20 text-center text-gray-600 text-sm pb-10">
               {content.openItems.footer}
             </div>
