@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle2, XCircle, Lightbulb, ChevronDown, Wrench, Target } from 'lucide-react';
-import { DashboardContent, LearningItem } from '../types';
+import { DashboardContent, LearningItem } from '../constants';
 
 interface PeakLearningsProps {
   content: DashboardContent['peakLearnings'];

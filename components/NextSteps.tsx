@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Bot, Target, RefreshCw, Users, ArrowRight, CheckCircle2 } from 'lucide-react';
-import { DashboardContent } from '../types';
+import { DashboardContent } from '../constants';
 
 interface NextStepsProps {
   content: DashboardContent['nextSteps'];

@@ -1,4 +1,185 @@
-import { DashboardContent } from './types';
+/**
+ * 📄 CONTENT CONSTANTS
+ * 
+ * This file contains the content for the Peak Season 2025 presentation.
+ * For new presentations, you can:
+ * 1. Edit this file directly, or
+ * 2. Create new content files in /content folder
+ * 
+ * The DashboardContent interface defines the structure of content.
+ */
+
+// ═══════════════════════════════════════════════════════════════════════════
+// TYPE DEFINITIONS
+// ═══════════════════════════════════════════════════════════════════════════
+
+export interface NavItem {
+  id: string;
+  label: string;
+}
+
+export interface LearningItem {
+  type: 'worked' | 'didnt' | 'truth';
+  text: string;
+  example?: string;
+  productImplication?: string;
+  nextBuild?: string[];
+}
+
+export interface ABTestResult {
+  metric: string;
+  ai: string;
+  human: string;
+  winner: 'ai' | 'human' | 'tie';
+}
+
+export interface SurveyDataPoint {
+  label: string;
+  value: number;
+  color?: string;
+}
+
+export interface NextStepPillar {
+  id: 'A' | 'B' | 'C';
+  title: string;
+  items: string[];
+  owner: string;
+}
+
+export interface Decision {
+  id: string;
+  title: string;
+  description: string;
+  owner: string;
+  type: 'decision' | 'proposal';
+}
+
+export interface DashboardContent {
+  nav: {
+    title: string;
+    items: NavItem[];
+    footer: {
+      line1: string;
+      line2: string;
+    };
+  };
+  hero: {
+    badge: string;
+    title: string;
+    subtitle: string;
+    period: string;
+    cta: string;
+  };
+  purpose: {
+    title: string;
+    subtitle: string;
+    text: string;
+    strikeText: string;
+    highlight: string;
+    tags: string[];
+  };
+  peakLearnings: {
+    title: string;
+    subtitle: string;
+    intro: string;
+    sections: {
+      worked: { title: string; items: LearningItem[] };
+      didnt: { title: string; items: LearningItem[] };
+      truths: { title: string; items: LearningItem[] };
+    };
+  };
+  abTesting: {
+    title: string;
+    subtitle: string;
+    whatWeTested: {
+      title: string;
+      items: string[];
+    };
+    whatWeLearned: {
+      title: string;
+      items: string[];
+    };
+    whatsNext: {
+      title: string;
+      text: string;
+    };
+    results: ABTestResult[];
+    speakerNotes?: string[];
+  };
+  fleetSurvey: {
+    title: string;
+    subtitle: string;
+    sampleSize: string;
+    highlights: string[];
+    preferredExperience: {
+      title: string;
+      data: SurveyDataPoint[];
+    };
+    preferredRadius: {
+      title: string;
+      data: SurveyDataPoint[];
+    };
+    topPriorities: {
+      title: string;
+      items: { label: string; percent: number }[];
+    };
+    painPoints: {
+      title: string;
+      items: string[];
+    };
+    paymentsInsights: {
+      headline: string;
+      subtitle: string;
+      chartData: {
+        breakdown: { count: number; percent: number };
+        total: { count: number; percent: number };
+      };
+      keyNeeds: string[];
+      friction: string;
+      fleetComments: string[];
+      productInsights: {
+        id: string;
+        title: string;
+        description: string;
+      }[];
+    };
+    labels: {
+      openComments: string;
+      topPriority: string;
+      preferredPlatform: string;
+      mainOpportunity: string;
+      optimizeApp: string;
+      forPayments: string;
+      featureImportance: string;
+      platformPreference: string;
+      whatFleetsWant: string;
+      breakdownDetail: string;
+      justTotal: string;
+      topNeeds: string;
+      currentFriction: string;
+      fleetVerbatim: string;
+      productOpportunities: string;
+    };
+  };
+  nextSteps: {
+    title: string;
+    subtitle: string;
+    pillars: NextStepPillar[];
+    decisions: {
+      title: string;
+      items: Decision[];
+    };
+    credits: {
+      title: string;
+      items: { name: string; role: string }[];
+    };
+    closing: string;
+  };
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// CONTENT
+// ═══════════════════════════════════════════════════════════════════════════
 
 export const CONTENT: { en: DashboardContent; es: DashboardContent } = {
   en: {

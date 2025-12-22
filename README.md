@@ -1,112 +1,389 @@
-# Peak Season 2025 - Lessons Learned
+# 🎯 Presentation Template
 
-Una aplicación interactiva de presentación para documentar las lecciones aprendidas durante la temporada alta 2025 de PartRunner.
+**Professional Interactive Presentation System**
 
-## 🚀 Características
+A modern, customizable presentation template built with React, TypeScript, and Tailwind CSS. Perfect for corporate presentations, product reviews, quarterly reports, and team retrospectives.
 
-### Navegación
-- **Sidebar Desktop** - Navegación fija con scroll spy
-- **Menú Mobile** - Drawer animado para dispositivos móviles
-- **Deep Links** - URLs compartibles para cada sección (`#section-id`)
-- **Progress Bar** - Indicador de progreso de lectura
+---
 
-### Interactividad
-- **Keyboard Navigation** - Navega con flechas ↑↓, números 0-9, y espacio
-- **Command Palette** - Búsqueda rápida con `⌘K` / `Ctrl+K`
-- **Modo Presentación** - Pantalla completa con `⌘⇧P` / `Ctrl+Shift+P`
-- **Export PDF** - Descarga la presentación como PDF
+## ✨ Features
 
-### Accesibilidad
-- Skip links para navegación con teclado
-- Atributos ARIA completos
-- Focus states visibles
-- Soporte completo de screen readers
+| Feature | Description |
+|---------|-------------|
+| 🎨 **Theme System** | Multiple built-in themes (dark, light, corporate, nature) |
+| 🌐 **i18n Support** | Multi-language support (EN/ES out of the box) |
+| ⌨️ **Keyboard Navigation** | Arrow keys, number shortcuts (0-5), spacebar |
+| 🔍 **Command Palette** | Quick navigation with ⌘K (like VS Code/Spotlight) |
+| 🎬 **Presentation Mode** | Fullscreen slides with ⌘⇧P |
+| 📱 **Responsive** | Desktop sidebar + mobile hamburger menu |
+| 🔗 **Deep Linking** | Shareable URLs with #section-id |
+| 📊 **Progress Bar** | Visual scroll progress indicator |
+| ♿ **Accessible** | Keyboard nav, focus states, skip links |
 
-### Bilingüe
-- Contenido en inglés y español
-- Toggle de idioma en la esquina superior derecha
+---
 
-### Animaciones
-- Entrada animada de secciones al hacer scroll
-- Tarjetas interactivas con modales expandibles
-- Transiciones fluidas con Framer Motion
+## 🚀 Quick Start
 
-## 🛠️ Tech Stack
-
-- **React 18** - Framework UI
-- **TypeScript** - Tipado estático
-- **Vite 6** - Build tool
-- **Tailwind CSS 4** - Estilos
-- **Framer Motion** - Animaciones
-- **Lucide React** - Iconografía
-- **html2pdf.js** - Export PDF
-
-## 📦 Instalación
+### 1. Install Dependencies
 
 ```bash
-# Instalar dependencias
 npm install
+```
 
-# Iniciar servidor de desarrollo
+### 2. Start Development Server
+
+```bash
 npm run dev
+```
 
-# Build de producción
+### 3. Open in Browser
+
+```
+http://localhost:3000
+```
+
+---
+
+## 📁 Project Structure
+
+```
+├── config/
+│   ├── presentation.config.ts   # 🎯 Main configuration file
+│   └── themes.ts                # 🎨 Theme definitions
+│
+├── content/
+│   ├── en.ts                    # 🇺🇸 English content
+│   ├── es.ts                    # 🇪🇸 Spanish content
+│   └── index.ts                 # Content exports
+│
+├── context/
+│   ├── ThemeContext.tsx         # Theme provider
+│   └── PresentationContext.tsx  # App state provider
+│
+├── hooks/
+│   ├── useKeyboardNavigation.ts # Keyboard shortcuts
+│   └── useScrollSpy.ts          # Section tracking
+│
+├── components/
+│   ├── ui/                      # 🧱 Reusable UI components
+│   │   ├── Sidebar.tsx
+│   │   ├── TopBar.tsx
+│   │   ├── Card.tsx
+│   │   ├── Badge.tsx
+│   │   └── ...
+│   │
+│   ├── Hero.tsx                 # Section components
+│   ├── Purpose.tsx
+│   ├── CommandPalette.tsx
+│   ├── PresentationMode.tsx
+│   └── ...
+│
+├── types/
+│   ├── config.ts                # Configuration types
+│   ├── content.ts               # Content types
+│   └── index.ts
+│
+├── App.tsx                      # Main app component
+├── index.tsx                    # Entry point
+└── index.css                    # Global styles
+```
+
+---
+
+## ⚙️ Configuration
+
+### `config/presentation.config.ts`
+
+This is the main configuration file. Customize it to create your presentation:
+
+```typescript
+export const presentationConfig: PresentationConfig = {
+  // 🏢 Your branding
+  branding: {
+    name: 'Your Company',
+    logo: './your-logo.png',
+    icon: './your-icon.png',
+  },
+
+  // 🎨 Choose a theme: 'dark' | 'light' | 'corporate' | 'nature'
+  theme: 'dark',
+
+  // 🌐 Languages
+  i18n: {
+    defaultLanguage: 'en',
+    languages: ['en', 'es'],
+  },
+
+  // 📑 Your sections
+  sections: [
+    { id: 'hero', component: 'Hero', showInNav: false },
+    { id: 'intro', component: 'Purpose', showInNav: true },
+    { id: 'content', component: 'Content', showInNav: true },
+    { id: 'summary', component: 'NextSteps', showInNav: true },
+  ],
+
+  // ⚙️ Features
+  features: {
+    commandPalette: true,
+    presentationMode: true,
+    keyboardNavigation: true,
+    progressBar: true,
+    languageToggle: true,
+    pdfExport: false,
+    deepLinking: true,
+    scrollSpy: true,
+  },
+
+  // 📊 Metadata
+  metadata: {
+    title: 'Your Presentation Title',
+    subtitle: 'Subtitle',
+    date: '2025-01-01',
+    author: 'Your Team',
+  },
+};
+```
+
+---
+
+## 📝 Creating Content
+
+### Step 1: Edit Content Files
+
+Edit `content/en.ts` and `content/es.ts`:
+
+```typescript
+export const enContent: PresentationContent = {
+  nav: {
+    title: 'Your Title',
+    items: [
+      { id: 'hero', label: 'Start' },
+      { id: 'intro', label: 'Introduction' },
+      // ... more sections
+    ],
+  },
+  hero: {
+    badge: 'Your Team',
+    title: 'Main Title',
+    subtitle: 'Compelling subtitle',
+    cta: 'Get Started',
+  },
+  // ... more content
+};
+```
+
+### Step 2: Match Section IDs
+
+Ensure your content `nav.items` IDs match your `config.sections` IDs:
+
+```typescript
+// config/presentation.config.ts
+sections: [
+  { id: 'hero', ... },      // ✅ Matches
+  { id: 'intro', ... },     // ✅ Matches
+]
+
+// content/en.ts
+nav: {
+  items: [
+    { id: 'hero', ... },    // ✅ Same ID
+    { id: 'intro', ... },   // ✅ Same ID
+  ]
+}
+```
+
+---
+
+## 🎨 Themes
+
+### Available Themes
+
+| Theme | Description |
+|-------|-------------|
+| `dark` | Dark background with amber accent (default) |
+| `light` | Light background with blue accent |
+| `corporate` | Professional slate with sky blue |
+| `nature` | Deep green with organic feel |
+
+### Switching Themes
+
+```typescript
+// config/presentation.config.ts
+theme: 'corporate', // Change theme here
+```
+
+### Creating Custom Themes
+
+Edit `config/themes.ts`:
+
+```typescript
+export const myCustomTheme: Theme = {
+  name: 'custom',
+  colors: {
+    primary: '#your-color',
+    bgPrimary: '#background',
+    // ... all color properties
+  },
+  fonts: {
+    heading: "'Your Font', sans-serif",
+    body: "'Your Font', sans-serif",
+    mono: "'Your Mono Font', monospace",
+  },
+};
+
+// Add to themes registry
+export const themes = {
+  // ... existing themes
+  custom: myCustomTheme,
+};
+```
+
+---
+
+## ⌨️ Keyboard Shortcuts
+
+| Shortcut | Action |
+|----------|--------|
+| `↑` `↓` or `←` `→` | Navigate sections |
+| `Space` | Next section |
+| `0-5` | Jump to section by number |
+| `⌘K` / `Ctrl+K` | Open command palette |
+| `⌘⇧P` / `Ctrl+Shift+P` | Enter presentation mode |
+| `Esc` | Close modals / exit presentation |
+
+---
+
+## 🏗️ Creating New Section Types
+
+### 1. Create Component
+
+```typescript
+// components/MySection.tsx
+import React from 'react';
+import { motion } from 'framer-motion';
+
+interface MySectionProps {
+  content: {
+    title: string;
+    items: string[];
+  };
+}
+
+export const MySection: React.FC<MySectionProps> = ({ content }) => {
+  return (
+    <section id="my-section" className="min-h-screen py-20 px-8">
+      <motion.h2
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        className="text-4xl font-bold"
+      >
+        {content.title}
+      </motion.h2>
+      {/* Your content */}
+    </section>
+  );
+};
+```
+
+### 2. Add Types
+
+```typescript
+// types/content.ts
+export interface MySectionContent {
+  title: string;
+  items: string[];
+}
+```
+
+### 3. Add to Config
+
+```typescript
+// config/presentation.config.ts
+sections: [
+  // ... existing
+  { id: 'my-section', component: 'MySection', showInNav: true },
+]
+```
+
+### 4. Add Content
+
+```typescript
+// content/en.ts
+mySection: {
+  title: 'My New Section',
+  items: ['Item 1', 'Item 2'],
+}
+```
+
+---
+
+## 📦 Building for Production
+
+```bash
+# Build for production
 npm run build
 
-# Preview del build
+# Preview production build
 npm run preview
 ```
 
-## ⌨️ Atajos de Teclado
+The build output will be in the `dist/` folder.
 
-| Atajo | Acción |
-|-------|--------|
-| `↑` `↓` | Navegar entre secciones |
-| `←` `→` | Navegar entre secciones |
-| `Space` | Siguiente sección |
-| `0-9` | Ir a sección específica |
-| `⌘K` / `Ctrl+K` | Abrir command palette |
-| `⌘⇧P` / `Ctrl+Shift+P` | Modo presentación |
-| `Esc` | Cerrar modales |
+---
 
-## 📁 Estructura del Proyecto
+## 🚢 Deployment
 
-```
-├── App.tsx                    # Componente principal
-├── index.tsx                  # Entry point
-├── index.html                 # HTML template
-├── index.css                  # Estilos globales + Tailwind
-├── constants.ts               # Contenido EN/ES
-├── types.ts                   # TypeScript types
-├── vite.config.ts             # Configuración Vite
-├── postcss.config.js          # Configuración PostCSS
-└── components/
-    ├── Hero.tsx               # Sección hero
-    ├── Sidebar.tsx            # Navegación desktop
-    ├── MobileNav.tsx          # Navegación mobile
-    ├── ProgressBar.tsx        # Barra de progreso
-    ├── CommandPalette.tsx     # Paleta de comandos
-    ├── PresentationMode.tsx   # Modo presentación
-    ├── Section.tsx            # Wrapper de sección
-    ├── ExecutiveSummary.tsx   # Resumen ejecutivo
-    ├── ProductInsights.tsx    # Insights con modales
-    ├── BeyondProduct.tsx      # Evidence packs
-    ├── ThemesSection.tsx      # Diagnóstico estratégico
-    ├── InitiativesSection.tsx # Grid de iniciativas
-    └── RaciSection.tsx        # Matriz RACI
+### Static Hosting (Recommended)
+
+Works with any static hosting:
+- Vercel
+- Netlify
+- GitHub Pages
+- AWS S3 + CloudFront
+
+```bash
+npm run build
+# Deploy contents of dist/ folder
 ```
 
-## 🎨 Paleta de Colores
+### Custom Base Path
 
-| Variable | Color | Uso |
-|----------|-------|-----|
-| `pr-black` | `#0f0f0f` | Background principal |
-| `pr-dark` | `#1a1a1a` | Background secundario |
-| `pr-gray` | `#2d2d2d` | Bordes y elementos |
-| `pr-yellow` | `#f59e0b` | Acento principal |
-| `pr-lightYellow` | `#fbbf24` | Acento hover |
-| `pr-white` | `#f3f4f6` | Texto principal |
+If deploying to a subdirectory, update `vite.config.ts`:
 
-## 📄 Licencia
+```typescript
+export default defineConfig({
+  base: '/your-subdirectory/',
+  // ...
+});
+```
 
-Privado - PartRunner 2025
+---
+
+## 🛠️ Tech Stack
+
+- **React 18** - UI library
+- **TypeScript 5** - Type safety
+- **Vite 6** - Build tool
+- **Tailwind CSS 4** - Styling
+- **Framer Motion** - Animations
+- **Lucide React** - Icons
+
+---
+
+## 📄 License
+
+MIT License - Feel free to use for any project.
+
+---
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Open a Pull Request
+
+---
+
+**Made with ❤️ by the Product Team**

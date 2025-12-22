@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ChevronsRight } from 'lucide-react';
-import { DashboardContent } from '../types';
+import { DashboardContent } from '../constants';
 
 interface MobileNavProps {
   isOpen: boolean;

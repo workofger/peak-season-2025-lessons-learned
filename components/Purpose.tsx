@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { DashboardContent } from '../types';
+import { DashboardContent } from '../constants';
 
 interface PurposeProps {
   content: DashboardContent['purpose'];

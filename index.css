@@ -1,22 +1,69 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+/**
+ * 🎨 PRESENTATION TEMPLATE - GLOBAL STYLES
+ * 
+ * This file contains the base styles for the presentation template.
+ * Theme colors are applied via CSS variables from the ThemeContext.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
 
 @import "tailwindcss";
 
-/* Custom Theme */
+/* ═══════════════════════════════════════════════════════════════════════════
+   CSS VARIABLES (defaults - overridden by ThemeContext)
+   ═══════════════════════════════════════════════════════════════════════════ */
+:root {
+  /* Colors - These are set dynamically by ThemeContext */
+  --color-primary: #f59e0b;
+  --color-primary-light: #fbbf24;
+  --color-secondary: #3b82f6;
+  --color-accent: #8b5cf6;
+  
+  --color-bg-primary: #0f0f0f;
+  --color-bg-secondary: #1a1a1a;
+  --color-bg-tertiary: #2d2d2d;
+  
+  --color-text-primary: #f3f4f6;
+  --color-text-secondary: #9ca3af;
+  --color-text-muted: #6b7280;
+  
+  --color-border: #374151;
+  --color-border-light: #4b5563;
+  
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-info: #3b82f6;
+  
+  /* Fonts */
+  --font-heading: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TAILWIND THEME EXTENSION
+   ═══════════════════════════════════════════════════════════════════════════ */
 @theme {
-  --color-pr-black: #0f0f0f;
-  --color-pr-dark: #1a1a1a;
-  --color-pr-gray: #2d2d2d;
-  --color-pr-yellow: #f59e0b;
-  --color-pr-lightYellow: #fbbf24;
-  --color-pr-white: #f3f4f6;
+  /* Legacy colors for backward compatibility */
+  --color-pr-black: var(--color-bg-primary);
+  --color-pr-dark: var(--color-bg-secondary);
+  --color-pr-gray: var(--color-bg-tertiary);
+  --color-pr-yellow: var(--color-primary);
+  --color-pr-lightYellow: var(--color-primary-light);
+  --color-pr-white: var(--color-text-primary);
   
-  --font-family-sans: 'Inter', system-ui, sans-serif;
+  /* Font family */
+  --font-family-sans: var(--font-body);
+  --font-family-heading: var(--font-heading);
+  --font-family-mono: var(--font-mono);
   
+  /* Animations */
   --animate-fade-in: fadeIn 0.5s ease-out;
   --animate-fade-in-up: fadeInUp 0.6s ease-out;
   --animate-slide-in-left: slideInLeft 0.4s ease-out;
   --animate-slide-in-right: slideInRight 0.4s ease-out;
+  --animate-pulse-subtle: pulseSubtle 2s ease-in-out infinite;
   
   @keyframes fadeIn {
     0% { opacity: 0; }
@@ -37,50 +84,89 @@
     0% { opacity: 0; transform: translateX(20px); }
     100% { opacity: 1; transform: translateX(0); }
   }
+  
+  @keyframes pulseSubtle {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
 }
 
-/* Base Styles */
+/* ═══════════════════════════════════════════════════════════════════════════
+   BASE STYLES
+   ═══════════════════════════════════════════════════════════════════════════ */
 html {
   scroll-behavior: smooth;
 }
 
 body {
-  background-color: var(--color-pr-black);
-  color: var(--color-pr-white);
-  font-family: var(--font-family-sans);
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
 }
 
-/* Focus styles for accessibility */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+code, pre {
+  font-family: var(--font-mono);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   FOCUS & ACCESSIBILITY
+   ═══════════════════════════════════════════════════════════════════════════ */
 *:focus-visible {
-  outline: 2px solid var(--color-pr-yellow);
+  outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }
 
 /* Selection color */
 ::selection {
-  background-color: var(--color-pr-yellow);
-  color: black;
+  background-color: var(--color-primary);
+  color: var(--color-bg-primary);
 }
 
-/* Custom Scrollbar */
+/* Skip link for accessibility */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background-color: var(--color-primary);
+  color: var(--color-bg-primary);
+  padding: 8px 16px;
+  z-index: 200;
+  transition: top 0.2s;
+  font-weight: 600;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SCROLLBAR
+   ═══════════════════════════════════════════════════════════════════════════ */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background-color: var(--color-pr-dark);
+  background-color: var(--color-bg-secondary);
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: var(--color-pr-gray);
+  background-color: var(--color-bg-tertiary);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: var(--color-pr-yellow);
+  background-color: var(--color-primary);
 }
 
 /* Hide scrollbar but keep functionality */
@@ -93,21 +179,9 @@ body {
   display: none;
 }
 
-/* Skip link for accessibility */
-.skip-link {
-  position: absolute;
-  top: -40px;
-  left: 0;
-  background-color: var(--color-pr-yellow);
-  color: black;
-  padding: 8px 16px;
-  z-index: 200;
-  transition: top 0.2s;
-}
-
-.skip-link:focus {
-  top: 0;
-}
+/* ═══════════════════════════════════════════════════════════════════════════
+   UTILITIES
+   ═══════════════════════════════════════════════════════════════════════════ */
 
 /* Line clamp utilities */
 .line-clamp-2 {
@@ -124,7 +198,25 @@ body {
   overflow: hidden;
 }
 
-/* Print styles for PDF export */
+/* Glass effect */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PRINT STYLES
+   ═══════════════════════════════════════════════════════════════════════════ */
 @media print {
   .no-print {
     display: none !important;
@@ -139,4 +231,69 @@ body {
     page-break-inside: avoid;
     break-inside: avoid;
   }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SECTION STYLES
+   ═══════════════════════════════════════════════════════════════════════════ */
+section {
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Section background patterns */
+.section-pattern {
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  pointer-events: none;
+  background-image: 
+    radial-gradient(circle at 25% 25%, var(--color-primary) 1px, transparent 1px),
+    radial-gradient(circle at 75% 75%, var(--color-secondary) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   COMPONENT SPECIFIC STYLES
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Hero gradient background */
+.hero-gradient {
+  background: linear-gradient(
+    135deg,
+    var(--color-bg-primary) 0%,
+    var(--color-bg-secondary) 50%,
+    var(--color-bg-primary) 100%
+  );
+}
+
+/* Card hover effect */
+.card-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.3);
+}
+
+/* Glow effect */
+.glow {
+  box-shadow: 0 0 20px var(--color-primary), 0 0 40px rgba(245, 158, 11, 0.2);
+}
+
+/* Border gradient */
+.border-gradient {
+  position: relative;
+  background: var(--color-bg-secondary);
+  border-radius: 12px;
+}
+
+.border-gradient::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 13px;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  z-index: -1;
 }

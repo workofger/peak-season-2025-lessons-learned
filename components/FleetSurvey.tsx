@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Users, Smartphone, MessageSquare, Star, Lightbulb, CreditCard, MessageCircle, ChevronRight, AlertTriangle } from 'lucide-react';
-import { DashboardContent } from '../types';
+import { DashboardContent } from '../constants';
 
 interface FleetSurveyProps {
   content: DashboardContent['fleetSurvey'];

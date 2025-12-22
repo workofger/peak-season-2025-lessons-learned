@@ -9,7 +9,7 @@ import {
   ArrowRight,
   Command
 } from 'lucide-react';
-import { NavItem } from '../types';
+import { NavItem } from '../constants';
 
 interface CommandPaletteProps {
   isOpen: boolean;

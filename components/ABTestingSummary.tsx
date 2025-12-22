@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Bot, User, ArrowRight, Zap, Clock, Users2, TrendingUp } from 'lucide-react';
-import { DashboardContent } from '../types';
+import { DashboardContent } from '../constants';
 
 interface ABTestingSummaryProps {
   content: DashboardContent['abTesting'];

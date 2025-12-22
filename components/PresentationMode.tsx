@@ -13,7 +13,7 @@ import {
   RefreshCw,
   ArrowRight
 } from 'lucide-react';
-import { DashboardContent } from '../types';
+import { DashboardContent } from '../constants';
 
 interface PresentationModeProps {
   isOpen: boolean;
