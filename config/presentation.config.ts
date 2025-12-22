@@ -1,16 +1,7 @@
 /**
- * 🎯 PRESENTATION TEMPLATE - MAIN CONFIGURATION
+ * 📚 PRESENTATION HUB - CONFIGURATION
  * 
- * This is the central configuration file for your presentation.
- * Customize this file to create a new presentation.
- * 
- * ═══════════════════════════════════════════════════════════════════════════
- * 📋 QUICK START:
- * 1. Update branding (name, logo)
- * 2. Choose a theme ('dark', 'light', 'corporate', 'nature')
- * 3. Define your sections
- * 4. Edit content files in /content folder
- * ═══════════════════════════════════════════════════════════════════════════
+ * This is the main hub/repository for all company presentations.
  */
 
 import { PresentationConfig } from '../types/config';
@@ -18,7 +9,6 @@ import { PresentationConfig } from '../types/config';
 export const presentationConfig: PresentationConfig = {
   // ═══════════════════════════════════════════════════════════════════════════
   // 🏢 BRANDING
-  // Replace with your company/project branding
   // ═══════════════════════════════════════════════════════════════════════════
   branding: {
     name: 'PartRunner',
@@ -28,7 +18,6 @@ export const presentationConfig: PresentationConfig = {
 
   // ═══════════════════════════════════════════════════════════════════════════
   // 🎨 THEME
-  // Options: 'dark' | 'light' | 'corporate' | 'nature'
   // ═══════════════════════════════════════════════════════════════════════════
   theme: 'dark',
 
@@ -42,44 +31,39 @@ export const presentationConfig: PresentationConfig = {
 
   // ═══════════════════════════════════════════════════════════════════════════
   // 📑 SECTIONS
-  // Define the sections/slides of your presentation
-  // The 'id' must match section IDs in your content files
   // ═══════════════════════════════════════════════════════════════════════════
   sections: [
     { id: 'hero', component: 'Hero', showInNav: false },
     { id: 'purpose', component: 'Purpose', showInNav: true },
-    { id: 'peak-learnings', component: 'PeakLearnings', showInNav: true },
-    { id: 'ab-testing', component: 'ABTestingSummary', showInNav: true },
-    { id: 'fleet-survey', component: 'FleetSurvey', showInNav: true },
-    { id: 'next-steps', component: 'NextSteps', showInNav: true },
+    { id: 'presentations', component: 'PresentationGallery', showInNav: true },
+    { id: 'teams', component: 'TeamsSection', showInNav: true },
+    { id: 'template', component: 'TemplateSection', showInNav: true },
   ],
 
   // ═══════════════════════════════════════════════════════════════════════════
   // ⚙️ FEATURES
-  // Toggle features on/off for this presentation
   // ═══════════════════════════════════════════════════════════════════════════
   features: {
-    commandPalette: true,      // ⌘K quick search
-    presentationMode: true,    // ⌘⇧P fullscreen slides
-    keyboardNavigation: true,  // Arrow keys, numbers 0-5
-    progressBar: true,         // Top scroll progress indicator
-    languageToggle: true,      // EN/ES language switch
-    pdfExport: false,          // Export to PDF (requires html2pdf)
-    deepLinking: true,         // URL hash navigation (#section-id)
-    scrollSpy: true,           // Auto-highlight current section in nav
+    commandPalette: true,
+    presentationMode: false,  // Disabled for hub (it's a gallery, not a presentation)
+    keyboardNavigation: true,
+    progressBar: true,
+    languageToggle: true,
+    pdfExport: false,
+    deepLinking: true,
+    scrollSpy: true,
   },
 
   // ═══════════════════════════════════════════════════════════════════════════
   // 📊 METADATA
-  // Information about the presentation
   // ═══════════════════════════════════════════════════════════════════════════
   metadata: {
-    title: 'Peak Season 2025 Learnings',
-    subtitle: 'Product Team Lessons Learned',
-    date: '2025-12-15',
+    title: 'Presentation Hub',
+    subtitle: 'Interactive Repository',
+    date: '2025-12-22',
     version: '1.0.0',
-    author: 'Product Team',
-    description: 'Interactive presentation for Peak Season 2025 Lessons Learned',
+    author: 'PartRunner',
+    description: 'Central hub for all company presentations',
   },
 };
 

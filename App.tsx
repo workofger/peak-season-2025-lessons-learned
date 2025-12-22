@@ -1,8 +1,7 @@
 /**
- * 🎯 PRESENTATION TEMPLATE - MAIN APP
+ * 📚 PRESENTATION HUB - MAIN APP
  * 
- * This is the main application component.
- * It orchestrates all sections and features of the presentation.
+ * Interactive repository for all company presentations.
  */
 
 import React from 'react';
@@ -16,15 +15,14 @@ import { useKeyboardNavigation, useScrollSpy } from './hooks';
 import { Sidebar, TopBar, ProgressBar, KeyboardHints } from './components/ui';
 import MobileNav from './components/MobileNav';
 import CommandPalette from './components/CommandPalette';
-import PresentationMode from './components/PresentationMode';
 
 // Section Components
 import Hero from './components/Hero';
 import Purpose from './components/Purpose';
-import PeakLearnings from './components/PeakLearnings';
-import ABTestingSummary from './components/ABTestingSummary';
-import FleetSurvey from './components/FleetSurvey';
-import NextSteps from './components/NextSteps';
+import PresentationGallery from './components/PresentationGallery';
+import TeamsSection from './components/TeamsSection';
+import TemplateSection from './components/TemplateSection';
+import StatsSection from './components/StatsSection';
 
 const App: React.FC = () => {
   const {
@@ -90,7 +88,7 @@ const App: React.FC = () => {
         activeSection={state.activeSection}
         content={{
           ...content.nav,
-          contents: 'Contents',
+          contents: 'Menu',
         }}
         onNavigate={(id) => {
           navigateToSection(id);
@@ -105,7 +103,7 @@ const App: React.FC = () => {
         onOpenCommandPalette={openCommandPalette}
         onOpenPresentationMode={openPresentationMode}
         showCommandPalette={config.features.commandPalette}
-        showPresentationMode={config.features.presentationMode}
+        showPresentationMode={false}
         showLanguageToggle={config.features.languageToggle}
       />
 
@@ -118,50 +116,69 @@ const App: React.FC = () => {
         {/* Hero Section */}
         <Hero content={content.hero} />
 
+        {/* Stats Overview */}
+        {content.stats && (
+          <StatsSection content={content.stats} />
+        )}
+
         {/* Purpose Section */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-        >
-          <Purpose content={content.purpose} />
-        </motion.div>
+        {content.purpose && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+          >
+            <Purpose content={content.purpose} />
+          </motion.div>
+        )}
 
-        {/* Peak Learnings Section */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-        >
-          <PeakLearnings content={content.peakLearnings} />
-        </motion.div>
+        {/* Presentations Gallery */}
+        {content.presentations && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+          >
+            <PresentationGallery content={content.presentations} />
+          </motion.div>
+        )}
 
-        {/* A/B Testing Section */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-        >
-          <ABTestingSummary content={content.abTesting} />
-        </motion.div>
+        {/* Teams Section */}
+        {content.teams && content.presentations && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+          >
+            <TeamsSection 
+              content={content.teams} 
+              presentations={content.presentations.all}
+            />
+          </motion.div>
+        )}
 
-        {/* Fleet Survey Section */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-        >
-          <FleetSurvey content={content.fleetSurvey} />
-        </motion.div>
+        {/* Template Section */}
+        {content.template && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+          >
+            <TemplateSection content={content.template} />
+          </motion.div>
+        )}
 
-        {/* Next Steps Section */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-        >
-          <NextSteps content={content.nextSteps} />
-        </motion.div>
+        {/* Footer */}
+        <footer className="py-12 px-8 text-center border-t border-gray-800">
+          <img 
+            src="./Logo.png" 
+            alt="PartRunner" 
+            className="h-8 mx-auto mb-4 opacity-50"
+          />
+          <p className="text-gray-600 text-sm">
+            PartRunner Products · Presentation Hub
+          </p>
+        </footer>
       </main>
 
       {/* Keyboard Hints */}
@@ -181,22 +198,8 @@ const App: React.FC = () => {
           }}
           onToggleLang={toggleLang}
           onExportPDF={() => {}}
-          onPresentationMode={() => {
-            closeCommandPalette();
-            openPresentationMode();
-          }}
+          onPresentationMode={() => {}}
           lang={state.lang as 'en' | 'es'}
-        />
-      )}
-
-      {/* Presentation Mode */}
-      {config.features.presentationMode && (
-        <PresentationMode
-          isOpen={state.isPresentationMode}
-          onClose={closePresentationMode}
-          sections={sectionIds}
-          activeSection={state.activeSection}
-          content={content}
         />
       )}
     </div>
